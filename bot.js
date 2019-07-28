@@ -70,6 +70,39 @@ client.on('message',async message => {
     }
   }
 
+  //Send message to a certian channel
+  if (devcommand === "channelsend") {
+    let channelid = args.slice(0).join(' ');
+    let content = args.slice(0).join(' ');
+    let message = channelid && " " && content;
+    if (message.author.id === package.ownerID) {
+      if (message.length < 1) {
+        //Send message with incorrect arguments error
+        let evalEmbed = new Discord.RichEmbed()
+          .setColor('#ff0000')
+          .setTitle('Message Fail!')
+          .setAuthor('Syntax Error')
+          .setTimestamp()
+          .setDescription("No message or channel ID was stated. the correct syntax is \n`s~channelsend channelid messagecontent`");
+        message.channel.send(evalEmbed);
+      }
+      if (message.length > 1) {
+        client.channels.get(channelid).send(content);
+
+        let evalEmbed = new Discord.RichEmbed()
+          .setColor('#90d190')
+          .setTitle('Message Sent!')
+          .setAuthor('s~channelsend ' && message)
+          .setTimestamp()
+          .setDescription("Message has been sent to the channelID of: `" && channelid && "`\n And with the content of;\n`" && content && "`");
+        message.channel.send(evalEmbed);
+      }
+    }
+    if (message.authr.id !== package.ownerID) {
+      message.reply("You do not have permission to use this command.");
+    }
+  }
+
   var statcommandarray = [
     "serverlist",
     "usercount",

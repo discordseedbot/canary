@@ -1,8 +1,9 @@
 {
+  "branch": "canary",
   "name": "SeedBot",
   "version": "1.2.3",
-  "build": "816",
-  "description": "A New and Improved Version of SeedBot",
+  "build": "817",
+  "description": "SeedBot Canary",
   "ownerID": "230485481773596672",
   "engines": {
     "node": "8.16.0"
@@ -25,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jylescoad-ward/seedbot.git"
+    "url": "git+https://github.com/discordseedbot/canary.git"
   },
   "author": "Jyles Coad-Ward [jyles@dariox.club]",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jylescoad-ward/seedbot/issues"
+    "url": "https://github.com/discordseedbot/canary/issues"
   },
   "homepage": "http://jyles.club/seedbot"
 }
