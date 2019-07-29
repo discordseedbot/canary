@@ -62,12 +62,23 @@ client.on('message',async message => {
 
   //Annoince to All Servers (Broken :/   )
   if (devcommand === 'announce') {
-    let message = args.slice(0).join(" ")
-    let array = client.channels.array().sort();
-    if (message.author.id === ownerID) {
-      client.channels.get(array).send(message);
-    } else {
-      message.reply('you do not have permissions to use this devcommand,\n so ***a s c e n d*** to the 4th ***d i m e n s i o n***');
+    //let message = args.slice(0).join(" ")
+    //let array = client.channels.array().sort();
+    //if (message.author.id === ownerID) {
+    //  client.channels.get(array).send(message);
+    //} else {
+    //  message.reply('you do not have permissions to use this devcommand,\n so ***a s c e n d*** to the 4th ***d i m e n s i o n***');
+    //}
+    if (message.author.id === package.ownerID){
+      let evalEmbed = new Discord.RichEmbed()
+        .setColor('#ff0000')
+        .setTitle('Uh Oh!')
+        .setAuthor('Command Disabled')
+        .setTimestamp()
+        .setDescription('The `announce` Command has been disabled since it has not been working for a while,\nThere will be an update in the future to fix this command.\n\nSorry for the inconvenience!');
+      message.channel.send(evalEmbed);
+    } if (message.author.id !== package.ownerID) {
+      message.reply('You do not have permission to access this developer command.');
     }
   }
 
