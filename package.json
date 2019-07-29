@@ -2,7 +2,7 @@
   "branch": "canary",
   "name": "SeedBot",
   "version": "1.2.3",
-  "build": "818",
+  "build": "819",
   "description": "SeedBot Canary",
   "ownerID": "230485481773596672",
   "engines": {

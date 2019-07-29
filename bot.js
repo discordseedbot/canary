@@ -43,22 +43,36 @@ client.on('message',async message => {
 
       
 
-
-  //Get Yo' IP Addresses Here!
-  if (devcommand === 'getipv4') {
-    if (message.author.id === ownerID) {
+if (devcommand === getip) {
+  let type = args.slice(0).join(' ');
+  if (message.author.id === package.ownerID){
+    if (type === "v4"){
       publicIp.v4().then(ip => {
-        message.author.send('**Global IPv4:**\n*' + ip + '*');
+        let evalEmbed = new Discord.RichEmbed()
+          .setColor('#0099ff')
+          .setTitle('Get Global IPv4 Address')
+          .setAuthor('s~getip v4')
+          .setTimestamp()
+          .setDescription('Global IPv4 Address:\n```\n' + ip + "\n```");
+        message.channel.send(evalEmbed);
       });
     }
-  }
-  if (devcommand === 'getipv6') {
-    if (message.author.id === ownerID) {
+    if (type === "v6"){
       publicIp.v6().then(ip => {
-        message.author.send('**Global IPv6:**\n*' + ip + '*');
+        let evalEmbed = new Discord.RichEmbed()
+          .setColor('#0099ff')
+          .setTitle('Get Global IPv6 Address')
+          .setAuthor('s~getip v6')
+          .setTimestamp()
+          .setDescription('Global IPv6 Address:\n```\n' + ip + "\n```");
+        message.channel.send(evalEmbed);
       });
     }
   }
+  if (message.author.id !== package.ownerID) {
+    message.reply('You do not have permission to use this developer command\nSorry!');
+  }
+}
 
   //Annoince to All Servers (Broken :/   )
   if (devcommand === 'announce') {
