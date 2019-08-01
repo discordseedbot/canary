@@ -1,5 +1,5 @@
 function wait(ms){var d=new Date();var d2=null;do{d2=new Date()}while(d2-d<ms);}
-const Discord = require("discord.js"); const { RichEmbed } = require('discord.js'); const client = new Discord.Client(); const publicIp = require('public-ip'); const asciify = require('asciify'); const wikipedia = require("wikipedia-js");
+const Discord = require("discord.js"); const { RichEmbed } = require('discord.js'); const client = new Discord.Client(); const publicIp = require('public-ip'); const asciify = require('asciify'); const wikipedia = require("wikipedia-js"); const prefix = require('./prefix.json');
 //DMOJ MODULE
 const problems = require('./dmoj/problem.js');const contests = require('./dmoj/contest.js');const users = require('./dmoj/user.js');
 //END OF DMOJ MODULE
@@ -17,7 +17,7 @@ function resetBot(channel) {
 const options={disabled:!1,interactive:!1,stream:process.stdout,types:{command:{color:'green',label:'c  COMMAND'},info:{color:'grey',label:'INFO',},error:{color:'red',label:'ERROR',}}}
 const { Signale } = require('signale');
 const signal = new Signale(options);
-const config = require("./config.json"); const package = require('./package.json'); const build = package.build; const ver = package.version; const ownerID = package.ownerID; const ytapi = config.ytApiToken;
+const config = require("./config.json"); const package = require('./package.json'); const build = package.build; const ver = package.version;
 
 //Check what branch SeedBot is running on
 if (package.branch == "canary") {var branch = "Canary";}if (package.branch === "stable") {var branch = "Stable";}
@@ -28,14 +28,13 @@ signal.info("Branch: " + branch);
 signal.info('Running SeedBot ' + branch + " (" + ver + ", build" + build +")");
 
 //Math command
-client.on('message',async message=>{if(message.author.bot)return;if(message.content.indexOf(config.mathprefix)!==0)return;const args=message.content.slice(config.mathprefix.length).trim().split(/ +/g);const devcommand=args.shift().toLowerCase();if(message.content.startsWith(config.mathprefix)){let calculate="="+message.content.toLowerCase().substring(config.mathprefix.length);if(isFinite(calculate.replace(/\=|\+|\-|\*|\/|\÷|\%|\(|\)|\,|\ |math.|pow|sqrt|round|floor|ceiling|ceil|pi|π|euler|absolute|abs|exp|logarithm|log|random|rand|rng/g,''))){calculate=calculate.replace(/ /g,"").replace(/÷/g,"/").replace(/power|pow/g,"Math.pow").replace(/sqrt|squareroot/g,"Math.sqrt").replace(/round/g,"Math.round").replace(/floor/g,"Math.floor").replace(/ceiling|ceil/g,"Math.ceil").replace(/pi|π/g,"Math.PI").replace(/euler/g,"Math.E").replace(/absolute|abs/g,"Math.abs").replace(/exp/g,"Math.exp").replace(/logarithm|log/g,"Math.log").replace(/random|rand|rng/g,"Math.random()");if(calculate.replace(/[^%]/g,"").length>0){for(let i=0;i<calculate.replace(/[^%]/g,"").length;i++){while((calculate[getSubstringIndex(calculate,"%",i+1)+1]=="+"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="-"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="*"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="/"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="("||calculate[getSubstringIndex(calculate,"%",i+1)+1]==")"||calculate[getSubstringIndex(calculate,"%",i+1)+1]==","||getSubstringIndex(calculate,"%",i+1)+1==calculate.length)&&calculate.replace(/[^%]/g,"").length>0){for(let j=getSubstringIndex(calculate,"%",i+1);j>-1;j--){if(calculate[j]=="="||calculate[j]=="+"||calculate[j]=="-"||calculate[j]=="*"||calculate[j]=="/"||calculate[j]=="("||calculate[j]==")"||calculate[j]==","){calculate=calculate.substring(0,j+1)+(calculate.substring(j+1,getSubstringIndex(calculate,"%",i+1))/100)+calculate.substring(getSubstringIndex(calculate,"%",i+1)+1,calculate.length);break}}}}}calculate=calculate.replace(/=/g,"");if(isFinite(eval(calculate)))message.channel.send(eval(calculate));console.log(eval(calculate))}}})
+client.on('message',async message=>{if(message.author.bot)return;if(message.content.indexOf(prefix.math)!==0)return;const args=message.content.slice(prefix.math.length).trim().split(/ +/g);const devcommand=args.shift().toLowerCase();if(message.content.startsWith(prefix.math)){let calculate="="+message.content.toLowerCase().substring(prefix.math.length);if(isFinite(calculate.replace(/\=|\+|\-|\*|\/|\÷|\%|\(|\)|\,|\ |math.|pow|sqrt|round|floor|ceiling|ceil|pi|π|euler|absolute|abs|exp|logarithm|log|random|rand|rng/g,''))){calculate=calculate.replace(/ /g,"").replace(/÷/g,"/").replace(/power|pow/g,"Math.pow").replace(/sqrt|squareroot/g,"Math.sqrt").replace(/round/g,"Math.round").replace(/floor/g,"Math.floor").replace(/ceiling|ceil/g,"Math.ceil").replace(/pi|π/g,"Math.PI").replace(/euler/g,"Math.E").replace(/absolute|abs/g,"Math.abs").replace(/exp/g,"Math.exp").replace(/logarithm|log/g,"Math.log").replace(/random|rand|rng/g,"Math.random()");if(calculate.replace(/[^%]/g,"").length>0){for(let i=0;i<calculate.replace(/[^%]/g,"").length;i++){while((calculate[getSubstringIndex(calculate,"%",i+1)+1]=="+"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="-"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="*"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="/"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="("||calculate[getSubstringIndex(calculate,"%",i+1)+1]==")"||calculate[getSubstringIndex(calculate,"%",i+1)+1]==","||getSubstringIndex(calculate,"%",i+1)+1==calculate.length)&&calculate.replace(/[^%]/g,"").length>0){for(let j=getSubstringIndex(calculate,"%",i+1);j>-1;j--){if(calculate[j]=="="||calculate[j]=="+"||calculate[j]=="-"||calculate[j]=="*"||calculate[j]=="/"||calculate[j]=="("||calculate[j]==")"||calculate[j]==","){calculate=calculate.substring(0,j+1)+(calculate.substring(j+1,getSubstringIndex(calculate,"%",i+1))/100)+calculate.substring(getSubstringIndex(calculate,"%",i+1)+1,calculate.length);break}}}}}calculate=calculate.replace(/=/g,"");if(isFinite(eval(calculate)))message.channel.send(eval(calculate));console.log(eval(calculate))}}})
 
 //Developer Commands
-var fs = require('fs');
 client.on('message',async message => {
   if (message.author.bot) return;
-  if (message.content.indexOf(config.devprefix) !== 0) return;
-  const args = message.content.slice(config.devprefix.length).trim().split(/ +/g);
+  if (message.content.indexOf(prefix.dev) !== 0) return;
+  const args = message.content.slice(prefix.dev.length).trim().split(/ +/g);
   const devcommand = args.shift().toLowerCase();
   const announcementschannel = client.channels.find('name', 'announcements');
   const generalchannel = client.channels.find('name', 'general');
@@ -43,7 +42,7 @@ client.on('message',async message => {
 
       
 
-if (devcommand === getip) {
+if (devcommand === "getip") {
   let type = args.slice(0).join(' ');
   if (message.author.id === package.ownerID){
     if (type === "v4"){
@@ -202,7 +201,7 @@ if (devcommand === getip) {
   
   //Restart Discord Bot
   if (devcommand === "restart") {
-    if (message.author.id === ownerID) {
+    if (message.author.id === package.ownerID) {
       message.channel.send('Bot it now Restarting. Good Night :first_quarter_moon_with_face: :bed: ');
       client.user.setActivity('Bot is Restarting...');
       resetBot(message.channel);
@@ -232,7 +231,7 @@ if (devcommand === getip) {
     // only the sender that has the same userID as the ownerID varaible in package.json can access this devcommand
 
     //Checking if the sender is a certian user
-    if (message.author.id === ownerID) {
+    if (message.author.id === package.ownerID) {
 
       //reset devcommand
       if (game === 'reset') {
@@ -252,7 +251,7 @@ if (devcommand === getip) {
   if (devcommand === "shell") {
     let script = args.slice(0).join(' ');
 
-    if (message.author.id === ownerID) {
+    if (message.author.id === package.ownerID) {
       const util = require('util');
       const exec = util.promisify(require('child_process').exec);
       const { stdout, stderr } = await exec(script);
@@ -269,8 +268,8 @@ if (devcommand === getip) {
 
 client.on("message", async message => {
     if (message.author.bot) return;
-    if (message.content.indexOf(config.prefix) !== 0) return;
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
+    if (message.content.indexOf(prefix.default) !== 0) return;
+    const args = message.content.slice(prefix.default.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
 
@@ -424,7 +423,7 @@ client.on("message", async message => {
     }
     if (command === 'punch') {
       let user = message.mentions.users.first()
-      if(user.id !== ownerID){
+      if(user.id !== package.ownerID){
           message.reply('You have punched <@' + user.id + '>')
       } else {
           message.reply("you can't hurt him you pleblord.")
@@ -513,6 +512,43 @@ client.on("message", async message => {
   
 });
 
+//Wikipedia Plugin
+client.on('message',async message => {
+  if (message.author.bot) return;
+  if (message.content.indexOf(prefix.wiki) !== 0) return;
+  const args = message.content.slice(prefix.wiki.length).trim().split(/ +/g);
+  const wikicommand = args.shift().toLowerCase();
+
+  if (command === "searcharticle") {
+    let query = args.slice(0).join(' ');
+    let options = {
+      query: query,
+      format: "xml",
+      summaryOnly: true,
+    };
+    wikipedia.searchArticle(options, function(err, wikiText){
+      if (err) {
+        cosole.log("An error occurred in the Wiki Plugin [query=%s, error=%s]", query, err);
+        return;
+      }
+      var parseString = require('xml2js').parseString;
+      var xml = wikiXML
+      parseString(xml, function (err, result) {
+        console.dir(wikiJSON);
+      });
+      let evalEmbed = new Discord.RichEmbed()
+        .setColor('#000099')
+        .setTitle('Uh Oh!')
+        .setAuthor('Command Disabled')
+        .setTimestamp()
+        .setDescription('');
+      message.channel.send(evalEmbed);
+    })
+
+  }
+
+});
+
 
 
 
@@ -552,11 +588,12 @@ music.start(client, {
 		disabled:false,
 		timer:10
 	},
-	botPrefix: "s?",
+	botPrefix: prefix.music,
 	anyoneCanSkip: false,
 	anyoneCanAdjust: true,
 	inlineEmbeds: false,
 	logging: false
 });
+
 
 

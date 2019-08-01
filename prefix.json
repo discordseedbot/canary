@@ -1,0 +1,7 @@
+{
+	"default": "s!",
+	"dev": "s~",
+	"music": "s?",
+	"math": "sm!",
+	"wiki": "s!wiki"
+}
