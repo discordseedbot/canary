@@ -1,17 +1,21 @@
 function wait(ms){var d=new Date();var d2=null;do{d2=new Date()}while(d2-d<ms);}
-const Discord = require("discord.js"); const { RichEmbed } = require('discord.js'); const client = new Discord.Client(); const publicIp = require('public-ip'); const asciify = require('asciify'); const wikipedia = require("wikipedia-js"); const prefix = require('./prefix.json');
+const Discord = require("discord.js"); const { RichEmbed } = require('discord.js'); const client = new Discord.Client(); const publicIp = require('public-ip'); const asciify = require('asciify'); const wikipedia = require("wikipedia-js"); const prefix = require('./prefix.json'); const fs = require('fs');
 //DMOJ MODULE
 const problems = require('./dmoj/problem.js');const contests = require('./dmoj/contest.js');const users = require('./dmoj/user.js');
 //END OF DMOJ MODULE
 
 //Reset bot command for s~restart
-function resetBot(channel) {
-    // send channel a message that you're resetting bot [optional]
-    channel.send('Resetting...')
-    .then(msg => client.destroy())
-    .then(() => client.login(config.token));
-}
+function resetBot(channel) {channel.send('Resetting...').then(msg => client.destroy()).then(() => client.login(config.token));}
 
+//Stastic Command
+funtion syncStats() {
+  fs.removeFileSync('stats/users.txt');
+  fs.createFileSync('stats/users.txt', client.users.size);
+  fs.removeFileSync('stats/channels.txt');
+  fs.createFileSync('stats/channels.txt', client.channels.size);
+  fs.removeFileSync('stats/guilds.txt');
+  fs.createFileSync('stats/guilds.txt', client.guilds.size);
+};
 
 //Signale
 const options={disabled:!1,interactive:!1,stream:process.stdout,types:{command:{color:'green',label:'c  COMMAND'},info:{color:'grey',label:'INFO',},error:{color:'red',label:'ERROR',}}}
@@ -42,39 +46,41 @@ client.on('message',async message => {
 
       
 
-if (devcommand === "getip") {
-  let type = args.slice(0).join(' ');
-  if (message.author.id === package.ownerID){
-    if (type === "v4"){
-      publicIp.v4().then(ip => {
-        let evalEmbed = new Discord.RichEmbed()
-          .setColor('#0099ff')
-          .setTitle('Get Global IPv4 Address')
-          .setAuthor('s~getip v4')
-          .setTimestamp()
-          .setDescription('Global IPv4 Address:\n```\n' + ip + "\n```");
-        message.channel.send(evalEmbed);
-      });
+  if (devcommand === "getip") {
+    syncStats()
+    let type = args.slice(0).join(' ');
+    if (message.author.id === package.ownerID){
+      if (type === "v4"){
+        publicIp.v4().then(ip => {
+          let evalEmbed = new Discord.RichEmbed()
+            .setColor('#0099ff')
+            .setTitle('Get Global IPv4 Address')
+            .setAuthor('s~getip v4')
+            .setTimestamp()
+            .setDescription('Global IPv4 Address:\n```\n' + ip + "\n```");
+          message.channel.send(evalEmbed);
+        });
+      }
+      if (type === "v6"){
+        publicIp.v6().then(ip => {
+          let evalEmbed = new Discord.RichEmbed()
+            .setColor('#0099ff')
+            .setTitle('Get Global IPv6 Address')
+            .setAuthor('s~getip v6')
+            .setTimestamp()
+            .setDescription('Global IPv6 Address:\n```\n' + ip + "\n```");
+          message.channel.send(evalEmbed);
+        });
+      }
     }
-    if (type === "v6"){
-      publicIp.v6().then(ip => {
-        let evalEmbed = new Discord.RichEmbed()
-          .setColor('#0099ff')
-          .setTitle('Get Global IPv6 Address')
-          .setAuthor('s~getip v6')
-          .setTimestamp()
-          .setDescription('Global IPv6 Address:\n```\n' + ip + "\n```");
-        message.channel.send(evalEmbed);
-      });
+    if (message.author.id !== package.ownerID) {
+      message.reply('You do not have permission to use this developer command\nSorry!');
     }
   }
-  if (message.author.id !== package.ownerID) {
-    message.reply('You do not have permission to use this developer command\nSorry!');
-  }
-}
 
   //Annoince to All Servers (Broken :/   )
   if (devcommand === 'announce') {
+    syncStats()
     //let message = args.slice(0).join(" ")
     //let array = client.channels.array().sort();
     //if (message.author.id === ownerID) {
@@ -97,6 +103,7 @@ if (devcommand === "getip") {
 
   //Send message to a certian channel
   if (devcommand === "channelsend") {
+    syncStats()
     let channelid = args.slice(0).join(' ');
     let content = args.slice(0).join(' ');
     let message = channelid && " " && content;
@@ -128,13 +135,8 @@ if (devcommand === "getip") {
     }
   }
 
-  var statcommandarray = [
-    "serverlist",
-    "usercount",
-    "channelcount"
-  ]
-
   if (devcommand === "stats") {
+    syncStats()
     let type = args.slice(0).join(' ');
     if (message.author.id === package.ownerID) {
       if (type === "serverlist") {
@@ -184,6 +186,7 @@ if (devcommand === "getip") {
   }
 
   if (devcommand === 'eval') {
+    syncStats()
     if (message.author.id === package.ownerID) {
       try {
         const code = args.join(" ");
@@ -201,6 +204,7 @@ if (devcommand === "getip") {
   
   //Restart Discord Bot
   if (devcommand === "restart") {
+    syncStats()
     if (message.author.id === package.ownerID) {
       message.channel.send('Bot it now Restarting. Good Night :first_quarter_moon_with_face: :bed: ');
       client.user.setActivity('Bot is Restarting...');
@@ -225,6 +229,7 @@ if (devcommand === "getip") {
 
   //Changes the Rich Presence
   if (devcommand === 'rpc') {
+    syncStats()
     var game = args.slice(0).join(" ");
 
 
@@ -275,6 +280,7 @@ client.on("message", async message => {
 
   //Basic ping command
   if (command === "ping") {
+    syncStats()
     const m = await message.channel.send("Ping?");
     m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. \nAPI Latency is ${Math.round(client.ping)}ms`);
     signal.command("A user executed s!ping");
@@ -282,6 +288,7 @@ client.on("message", async message => {
 
   //Basic commands
   if (command === "invite") {
+    syncStats()
       message.reply("Take me to your leader!\n http://jyles.club/seedbot/invite");
       message.channel.send({embed: {
         color: 329514,
@@ -297,6 +304,7 @@ client.on("message", async message => {
       }});
   }  
   if (command === "help") {
+    syncStats()
     message.channel.send({embed: {
       color: 329514,
       author: {name:'s!help'},
@@ -311,6 +319,7 @@ client.on("message", async message => {
     }});
   }
   if (command === "support") {
+    syncStats()
     message.channel.send({embed: {
       color: 329514,
       author: {name: 's!support'},
@@ -329,6 +338,7 @@ client.on("message", async message => {
 
         //Kick Command
   if (command === 'kick') {
+    syncStats()
     let reason = args.slice(1).join(' ');
     let userToKick = message.mentions.users.first();
     let logchannel = message.guild.channels.find('name', 'logs');
@@ -368,6 +378,7 @@ client.on("message", async message => {
 
         //Ban Command
   if (command === 'ban') {
+    syncStats()
     let reason = args.slice(1).join(' ');
     let userToBan = message.mentions.users.first();
     let logchannel = message.guild.channels.find('name', 'logs');
@@ -408,6 +419,7 @@ client.on("message", async message => {
 
   //Fun Commands! >w<
     if (command === 'rps') {
+    syncStats()
       let choice = args.join(" ").toLowerCase();
       if (choice === '') return message.reply("Please specify either rock, paper or scissors.");
       if (choice !== "rock" && choice !== "paper" && choice !== "scissors") return message.reply(`Please specify either rock, paper or scissors. ${choice} isn't one of those :P`);
@@ -422,6 +434,7 @@ client.on("message", async message => {
       message.channel.send(evalEmbed);
     }
     if (command === 'punch') {
+    syncStats()
       let user = message.mentions.users.first()
       if(user.id !== package.ownerID){
           message.reply('You have punched <@' + user.id + '>')
@@ -430,6 +443,7 @@ client.on("message", async message => {
       }
     }
     if (command === 'avatar') {
+    syncStats()
       let avatar = message.mentions.users.size ? message.mentions.users.first().avatarURL : message.author.avatarURL;
       if (message.mentions.users.size > 0) {
           message.channel.send(`Avatar for, **${message.mentions.users.first().username}:**\n${avatar}`);
@@ -438,11 +452,13 @@ client.on("message", async message => {
       }
     }
     if (command === 'hammer') {
+    syncStats()
       let user = message.mentions.users.first();
       if (message.mentions.users.first() < 1){ return message.reply('You can\'t throw a hammer at the wall silly, ping someone after the command.')}
       message.channel.send(`${message.author.username} threw a sledge hammer at ${message.mentions.users.first().username}. <:hammmer:${settings.hammer}>`)
     }
     if (command === 'ppsize') {
+    syncStats()
         let sizecomment; let ppgraphsize;
         let maxppsize = 24;
         let minppsize = 1;
@@ -482,6 +498,7 @@ client.on("message", async message => {
 
     }
     if (command === 'magic8ball') {
+    syncStats()
         let magic8ballresponses = require('./fun/8ball.json');
         let responseNumber = Math.floor(Math.random() * 20) + 1;
 
@@ -491,6 +508,7 @@ client.on("message", async message => {
 
     }
     if (command === "asciify") {
+    syncStats()
         let text = args.slice(0).join(' ');
         if (text.length > 0) {
             //Asciify Stuff Here
@@ -520,6 +538,7 @@ client.on('message',async message => {
   const wikicommand = args.shift().toLowerCase();
 
   if (command === "searcharticle") {
+    syncStats()
     let query = args.slice(0).join(' ');
     let options = {
       query: query,
@@ -574,6 +593,7 @@ client.on('message',async message => {
 
 
 client.on("ready", () => {
+    syncStats()
     signal.info('Bot started at ' + new Date())
     signal.info(`Bot has started, with ` + client.users.size + ` users, in ` + client.channels.size + ` channels of ` + client.guilds.size + ` guilds.`);
 
