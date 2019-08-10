@@ -15,6 +15,7 @@ funtion syncStats() {
   fs.createFileSync('stats/channels.txt', client.channels.size);
   fs.removeFileSync('stats/guilds.txt');
   fs.createFileSync('stats/guilds.txt', client.guilds.size);
+  client.user.setActivity(`with the logs // ` + client.users.size + ` Users. // v` + ver);
 };
 
 //Signale
