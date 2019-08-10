@@ -9,14 +9,14 @@ function resetBot(channel) {channel.send('Resetting...').then(msg => client.dest
 
 //Stastic Command
 function syncStats() {
-  fs.removeFileSync('stats/users.txt');
-  fs.createFileSync('stats/users.txt', client.users.size);
-  fs.removeFileSync('stats/channels.txt');
-  fs.createFileSync('stats/channels.txt', client.channels.size);
-  fs.removeFileSync('stats/guilds.txt');
-  fs.createFileSync('stats/guilds.txt', client.guilds.size);
-  client.user.setActivity(`with the logs // ` + client.users.size + ` Users. // v` + ver);
+  fs.unlinkSync('./stats/users.txt');
+  fs.writeFileSync('./stats/users.txt', client.users.size.toString());
+  fs.unlinkSync('./stats/channels.txt');
+  fs.writeFileSync('./stats/channels.txt', client.channels.size.toString());
+  fs.unlinkSync('./stats/guilds.txt');
+  fs.writeFileSync('./stats/guilds.txt', client.guilds.size.toString());
 };
+setInterval(syncStats, 1800);
 
 //Signale
 const options={disabled:!1,interactive:!1,stream:process.stdout,types:{command:{color:'green',label:'c  COMMAND'},info:{color:'grey',label:'INFO',},error:{color:'red',label:'ERROR',}}}
