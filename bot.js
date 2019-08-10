@@ -8,7 +8,7 @@ const problems = require('./dmoj/problem.js');const contests = require('./dmoj/c
 function resetBot(channel) {channel.send('Resetting...').then(msg => client.destroy()).then(() => client.login(config.token));}
 
 //Stastic Command
-funtion syncStats() {
+function syncStats() {
   fs.removeFileSync('stats/users.txt');
   fs.createFileSync('stats/users.txt', client.users.size);
   fs.removeFileSync('stats/channels.txt');
