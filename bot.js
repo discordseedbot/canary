@@ -44,8 +44,7 @@ client.on('message',async message => {
   const announcementschannel = client.channels.find('name', 'announcements');
   const generalchannel = client.channels.find('name', 'general');
 
-
-      
+	//Start of Developer Commands
 
   if (devcommand === "getip") {
     syncStats()
@@ -290,13 +289,13 @@ client.on("message", async message => {
   //Basic commands
   if (command === "invite") {
     syncStats()
-      message.reply("Take me to your leader!\n http://jyles.club/seedbot/invite");
+      message.reply("Take me to your leader!\n http://seedbot.jyles.club/invite");
       message.channel.send({embed: {
         color: 329514,
         author: {name:'s!invite'},
         fields: [{
           name: 'Bot Invite Link',
-          value: 'Take me to your leader!\nhttp://jyles.club/seedbot/invite'
+          value: 'Take me to your leader!\nhttp://seedbot.jyles.club/invite'
         }],
         timestamp: 'Command Requested at ' + new Date(),
         footer: {
@@ -311,7 +310,7 @@ client.on("message", async message => {
       author: {name:'s!help'},
       fields: [{
         name: 'Help Description',
-        value: 'The Command Dictionary have been *permanently* moved to ***http://jyles.club/seedbot/#commands***'
+        value: 'The Command Dictionary has been *permanently* moved to ***http://seedbot.jyles.club/#commands***'
       }],
       timestamp: 'Command Requested at ' + new Date(),
       footer: {
@@ -326,13 +325,28 @@ client.on("message", async message => {
       author: {name: 's!support'},
       fields: [{
         name: 'Bot Support',
-        value: 'If you need help with the bot join our discord `http://jyles.club/discord`\n Or you can email us at `contact@dariox.club`'
+        value: 'If you need help with the bot join our discord `http://jyles.club/redirect.php?page=discord`\n Or you can email us at `contact@dariox.club`'
       }],
       timestamp: 'Command Requested at ' + new Date(),
       footer: {
         text: 'Requested by ' + message.author.username
       }
     }});
+  }
+  if (command === "patreon") {
+    syncStats()
+	message.channel.send({embed: {
+		color: 329514,
+		author: {name: 's!patreon'},
+		fields: [{
+			name: 'Patreon',
+			value: "It's not free to run a discord bot and since more people are starting to use SeedBot I made a patreon page \n so people can give me money to run my discord bot so it can handle more people at once (which is what it is struggling at), also so when we get more money I can hire someone to make modules for the bot and in the future make a dashboard so you have a better experience.\n\n If you want all of these good things that other bots have then Donate to our patreon page at:\n https://patreon.com/jyles_coadward",\
+		}],
+		timestamp: 'Command Requested at ' + new Date(),
+		footer: {
+			text: 'Requested by ' + message.author.username
+		}
+	}});
   }
 
 //Moderation commands ___________________________________________________________________________
