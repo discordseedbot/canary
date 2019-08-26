@@ -265,7 +265,7 @@ client.on('message',async message => {
         .setTitle('Shell Execute Output')
         .setTimestamp()
         .setDescription('**Shell Output:**\n' && stdout && '\n\n**Shell Errors:**\n' && stderr);
-      message.channel.send(evalEmbed);
+      setTimeout(function() { message.channel.send(evalEmbed) }, 5000);
     }
   }
 });
