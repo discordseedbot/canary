@@ -2,7 +2,7 @@
   "branch": "canary",
   "name": "SeedBot",
   "version": "1.2.7",
-  "build": "842",
+  "build": "890",
   "description": "SeedBot Canary",
   "ownerID": "230485481773596672",
   "engines": {
@@ -20,16 +20,12 @@
     "discord.js-musicbot-addon": "^13.5.2",
     "external-ip": "^2.1.1",
     "figlet": "^1.2.4",
-    "jquery": "^3.4.1",
+    "node-gyp": "^5.0.3",
     "opusscript": "0.0.6",
-    "public-ip": "^3.1.0",
-    "replace": "^1.1.0",
-    "replace-string": "^3.0.0",
+    "rebuild": "^0.1.2",
     "signale": "^1.4.0",
-    "strman.replace": "^2.0.0",
     "syncprompt": "^2.0.0",
-    "util": "^0.12.1",
-    "wikipedia-js": "0.0.6"
+    "util": "^0.12.1"
   },
   "repository": {
     "type": "git",

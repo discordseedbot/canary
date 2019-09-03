@@ -4,64 +4,64 @@ module.exports.cmd = function() {
 	let responseNumber = Math.floor(Math.random() * 20) + 1;
 	switch(responseNumber) {
 		case 1:
-			reply = aa.responseList;
+			reply = responseList.aa;
 			break;
 		case 2:
-			reply = bb.responseList;
+			reply = responseList.bb;
 			break;
 		case 3:
-			reply = cc.responseList;
+			reply = responseList.cc;
 			break;
 		case 4:
-			reply = dd.responseList;
+			reply = responseList.dd;
 			break;
 		case 5:
-			reply = ee.responseList;
+			reply = responseList.ee;
 			break;
 		case 6:
-			reply = ff.responseList;
+			reply = responseList.ff;
 			break;
 		case 7:
-			reply = gg.responseList;
+			reply = responseList.gg;
 			break;
 		case 8:
-			reply = hh.responseList;
+			reply = responseList.hh;
 			break;
 		case 9:
-			reply = ii.responseList;
+			reply = responseList.ii;
 			break;
 		case 10:
-			reply = jj.responseList;
+			reply = responseList.jj;
 			break;
 		case 11:
-			reply = kk.responseList;
+			reply = responseList.kk;
 			break;
 		case 12:
-			reply = ll.responseList;
+			reply = responseList.ll;
 			break;
 		case 13:
-			reply = rrq.responseList;
+			reply = responseList.rrq;
 			break;
 		case 14:
-			reply = nn.responseList;
+			reply = responseList.nn;
 			break;
 		case 15:
-			reply = oo.responseList;
+			reply = responseList.oo;
 			break;
 		case 16:
-			reply = pp.responseList;
+			reply = responseList.pp;
 			break;
 		case 17:
-			reply = qq.responseList;
+			reply = responseList.qq;
 			break;
 		case 18:
-			reply = rr.responseList;
+			reply = responseList.rr;
 			break;
 		case 19:
-			reply = ss.responseList;
+			reply = responseList.ss;
 			break;
 		case 20:
-			reply = ow.responseList;
+			reply = responseList.ow;
 			break;
 	}
 	return reply;

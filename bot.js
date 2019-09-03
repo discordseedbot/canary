@@ -62,17 +62,7 @@ client.on('message',async message => {
     //} else {
     //  message.reply('you do not have permissions to use this devcommand,\n so ***a s c e n d*** to the 4th ***d i m e n s i o n***');
     //}
-    if (message.author.id === package.ownerID){
-      let evalEmbed = new Discord.RichEmbed()
-        .setColor('#ff0000')
-        .setTitle('Uh Oh!')
-        .setAuthor('Command Disabled')
-        .setTimestamp()
-        .setDescription('The `announce` Command has been disabled since it has not been working for a while,\nThere will be an update in the future to fix this command.\n\nSorry for the inconvenience!');
-      message.channel.send(evalEmbed);
-    } if (message.author.id !== package.ownerID) {
-      message.reply('You do not have permission to access this developer command.');
-    }
+    message.channel.send(require('./modules/error.js').disabled(devcommand,message.author.username));
   }
 
 //Sends a message to the channelID specifiyed.
@@ -494,11 +484,12 @@ client.on("message", async message => {
       syncStats()
       let user = message.mentions.users.first();
       if (message.mentions.users.first() < 1){ return message.reply('You can\'t throw a hammer at the wall silly, ping someone after the command.')}
-      message.channel.send(`${message.author.username} threw a sledge hammer at ${message.mentions.users.first().username}. <:hammmer:${settings.hammer}>`)
+      message.channel.send(`${message.author.username} threw a sledge hammer at ${message.mentions.users.first().username}. :hammer: `)
     }
     if (command === 'ppsize') {
       syncStats()
-      message.channel.send(require('./modules/fun/ppsize.js').cmd());
+      //message.channel.send(require('./modules/fun/ppsize.js').cmd());   
+      message.channel.send(require('./modules/error.js').disabled(command, message.author.username));
     }
     if (command === 'magic8ball') {
       syncStats()
@@ -507,13 +498,12 @@ client.on("message", async message => {
     }
     if (command === "asciify") {
       syncStats()
-      let text = args.slice(0).join(' ');
-      message.channel.send(require('./modules/fun/asciify/main.js').cmd(text));
+      let text = args.slice(0).join(' '); message.channel.send(require('./modules/fun/asciify/main.js').cmd(text));
 
     }
     if (command === "copypasta") {
-      syncStats();
-      message.channel.send(require('./modules/fun/copypasta.js').cmd());
+      syncStats(); 
+       message.channel.send(require('./modules/fun/copypasta.js').cmd());
     }
 
 

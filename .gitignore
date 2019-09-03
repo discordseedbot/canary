@@ -4,3 +4,4 @@ package-lock.json
 stats/users.txt
 stats/channels.txt
 stats/guilds.txt
+config.json

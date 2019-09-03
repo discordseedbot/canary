@@ -3,34 +3,34 @@ const package = require('./../../package.json');
 
 module.exports.sync = function (usercount, channelcount, guildcount) {
   //Users
-  if (fs.existsSync('./users.txt')){
-    fs.unlinkSync('./users.txt');
-    fs.writeFileSync('./users.txt', usercount.toString());
+  if (fs.existsSync('./modules/stats/users.txt')){
+    fs.unlinkSync('./modules/stats/users.txt');
+    fs.writeFileSync('./modules/stats/users.txt', usercount.toString());
   } else {
-    fs.writeFileSync('./users.txt', usercount.toString());
+    fs.writeFileSync('./modules/stats/users.txt', usercount.toString());
   }
 
   //Channels
-  if (fs.existsSync('./channels.txt')){
-    fs.unlinkSync('./channels.txt');
-    fs.writeFileSync('./channels.txt', channelcount.toString());
+  if (fs.existsSync('./modules/stats/channels.txt')){
+    fs.unlinkSync('./modules/stats/channels.txt');
+    fs.writeFileSync('./modules/stats/channels.txt', channelcount.toString());
   } else {
-    fs.writeFileSync('./channels.txt', channelcount.toString());
+    fs.writeFileSync('./modules/stats/channels.txt', channelcount.toString());
   }
 
   //Guilds/Servers
-  if (fs.existsSync('./guilds.txt')){
-    fs.unlinkSync('./guilds.txt');
-    fs.writeFileSync('./guilds.txt', guildcount.toString());
+  if (fs.existsSync('./modules/stats/guilds.txt')){
+    fs.unlinkSync('./modules/stats/guilds.txt');
+    fs.writeFileSync('./modules/stats/guilds.txt', guildcount.toString());
   } else {
-    fs.writeFileSync('./guilds.txt', guildcount.toString());
+    fs.writeFileSync('./modules/stats/guilds.txt', guildcount.toString());
   }
 
   //Version
-  if (fs.existsSync('./version.txt')){
-    fs.unlinkSync('./version.txt');
-    fs.writeFileSync('./version.txt', package.version.toString());
+  if (fs.existsSync('./modules/stats/version.txt')){
+    fs.unlinkSync('./modules/stats/version.txt');
+    fs.writeFileSync('./modules/stats/version.txt', package.version.toString());
   } else {
-    fs.writeFileSync('./version.txt', package.version.toString());
+    fs.writeFileSync('./modules/stats/version.txt', package.version.toString());
   }
 }
