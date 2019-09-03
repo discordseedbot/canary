@@ -1,28 +1,14 @@
-function wait(ms){var d=new Date();var d2=null;do{d2=new Date()}while(d2-d<ms);}
-const Discord = require("discord.js"); const { RichEmbed } = require('discord.js'); const client = new Discord.Client(); const publicIp = require('public-ip'); const asciify = require('asciify'); const wikipedia = require("wikipedia-js"); const prefix = require('./prefix.json'); const fs = require('fs');
-//DMOJ MODULE
-const problems = require('./dmoj/problem.js');const contests = require('./dmoj/contest.js');const users = require('./dmoj/user.js');
-//END OF DMOJ MODULE
+const Discord = require("discord.js"); const { RichEmbed } = require('discord.js'); const client = new Discord.Client(); const figlet = require('figlet');; const fs = require('fs');const prefix = require('./prefix.json'); function wait(ms){var d=new Date();var d2=null;do{d2=new Date()}while(d2-d<ms);}
 
-//Reset bot command for s~restart
-function resetBot(channel) {channel.send('Resetting...').then(msg => client.destroy()).then(() => client.login(config.token));}
+
 
 //Stastic Command
-function syncStats() {
-  fs.unlinkSync('./stats/users.txt');
-  fs.writeFileSync('./stats/users.txt', client.users.size.toString());
-  fs.unlinkSync('./stats/channels.txt');
-  fs.writeFileSync('./stats/channels.txt', client.channels.size.toString());
-  fs.unlinkSync('./stats/guilds.txt');
-  fs.writeFileSync('./stats/guilds.txt', client.guilds.size.toString());
-};
-setInterval(syncStats, 1800);
+function syncStats(){require("./modules/stats/main.js").sync(client.users.size,client.channels.size,client.guilds.size);};
 
 //Signale
-const options={disabled:!1,interactive:!1,stream:process.stdout,types:{command:{color:'green',label:'c  COMMAND'},info:{color:'grey',label:'INFO',},error:{color:'red',label:'ERROR',}}}
-const { Signale } = require('signale');
-const signal = new Signale(options);
-const config = require("./config.json"); const package = require('./package.json'); const build = package.build; const ver = package.version;
+const options={disabled:!1,interactive:!1,stream:process.stdout,types:{command:{color:'green',label:'c  COMMAND'},info:{color:'grey',label:'INFO',},error:{color:'red',label:'ERROR',}}}; const { Signale } = require('signale'); const signal = new Signale(options); const config = require("./config.json"); const package = require('./package.json'); const build = package.build; const ver = package.version; const ownerID = package.ownerID; const ytapi = config.ytApiToken;
+
+
 
 //Check what branch SeedBot is running on
 if (package.branch == "canary") {var branch = "Canary";}if (package.branch === "stable") {var branch = "Stable";}
@@ -41,49 +27,37 @@ client.on('message',async message => {
   if (message.content.indexOf(prefix.dev) !== 0) return;
   const args = message.content.slice(prefix.dev.length).trim().split(/ +/g);
   const devcommand = args.shift().toLowerCase();
-  const announcementschannel = client.channels.find('name', 'announcements');
-  const generalchannel = client.channels.find('name', 'general');
 
-	//Start of Developer Commands
-
+//Fetches Public Internet Protocol Address
   if (devcommand === "getip") {
     syncStats()
+      const extIP = require('external-ip'); let useragent = "+SeedBot-" && package.version && " http://seedbot.jyles.club"; let getIP = extIP({ eplace: true, services: ['http://dxcdn.net/api/public-ip.php'], timeout: 600, getIP: 'parallel', userAgent: useragent});
     let type = args.slice(0).join(' ');
     if (message.author.id === package.ownerID){
-      if (type === "v4"){
-        publicIp.v4().then(ip => {
-          let evalEmbed = new Discord.RichEmbed()
+      getIP((err, ip) => {
+        if (err) {
+          throw err;
+        }
+         let evalEmbed = new Discord.RichEmbed()
             .setColor('#0099ff')
-            .setTitle('Get Global IPv4 Address')
-            .setAuthor('s~getip v4')
+            .setTitle('Get Global IP Address')
+            .setAuthor('s~getip')
             .setTimestamp()
-            .setDescription('Global IPv4 Address:\n```\n' + ip + "\n```");
+            .setDescription('Global IP Address:\n```\n' + ip + "\n```");
           message.channel.send(evalEmbed);
-        });
-      }
-      if (type === "v6"){
-        publicIp.v6().then(ip => {
-          let evalEmbed = new Discord.RichEmbed()
-            .setColor('#0099ff')
-            .setTitle('Get Global IPv6 Address')
-            .setAuthor('s~getip v6')
-            .setTimestamp()
-            .setDescription('Global IPv6 Address:\n```\n' + ip + "\n```");
-          message.channel.send(evalEmbed);
-        });
-      }
+      });
     }
     if (message.author.id !== package.ownerID) {
       message.reply('You do not have permission to use this developer command\nSorry!');
     }
   }
 
-  //Annoince to All Servers (Broken :/   )
+//Annoince to All Servers (Broken :/ )
   if (devcommand === 'announce') {
     syncStats()
     //let message = args.slice(0).join(" ")
     //let array = client.channels.array().sort();
-    //if (message.author.id === ownerID) {
+    //if (message.author.id === package.ownerID) {
     //  client.channels.get(array).send(message);
     //} else {
     //  message.reply('you do not have permissions to use this devcommand,\n so ***a s c e n d*** to the 4th ***d i m e n s i o n***');
@@ -101,14 +75,14 @@ client.on('message',async message => {
     }
   }
 
-  //Send message to a certian channel
+//Sends a message to the channelID specifiyed.
   if (devcommand === "channelsend") {
     syncStats()
-    let channelid = args.slice(0).join(' ');
-    let content = args.slice(0).join(' ');
-    let message = channelid && " " && content;
+    let channelid = args.slice(0).join(' ').split(' ')[0];
+    let content = args.slice(1).join(' ');
+    let msg = channelid && " " && content;
     if (message.author.id === package.ownerID) {
-      if (message.length < 1) {
+      if (msg.length < 1) {
         //Send message with incorrect arguments error
         let evalEmbed = new Discord.RichEmbed()
           .setColor('#ff0000')
@@ -118,23 +92,24 @@ client.on('message',async message => {
           .setDescription("No message or channel ID was stated. the correct syntax is \n`s~channelsend channelid messagecontent`");
         message.channel.send(evalEmbed);
       }
-      if (message.length > 1) {
+      if (msg.length > 1) {
+        //yay it finally sends the fucking command
         client.channels.get(channelid).send(content);
 
         let evalEmbed = new Discord.RichEmbed()
           .setColor('#90d190')
           .setTitle('Message Sent!')
-          .setAuthor('s~channelsend ' && message)
           .setTimestamp()
-          .setDescription("Message has been sent to the channelID of: `" && channelid && "`\n And with the content of;\n`" && content && "`");
+          .setDescription("Message has been sent to the channelID of;\n ``" + channelid + "``\n\n And with the content of;\n``" + content + "``");
         message.channel.send(evalEmbed);
       }
     }
-    if (message.authr.id !== package.ownerID) {
+    if (message.author.id !== package.ownerID) {
       message.reply("You do not have permission to use this command.");
     }
   }
 
+//Gets Bot Stastics
   if (devcommand === "stats") {
     syncStats()
     let type = args.slice(0).join(' ');
@@ -172,7 +147,7 @@ client.on('message',async message => {
           .setDescription(channelcount);
         message.channel.send(evalEmbed);
       }
-      if (type !== "channelcount" || "serverlist" || "usercount") {
+      if (type !== "channelcount" || type !== "serverlist" || type !== "usercount") {
         let evalEmbed = new Discord.RichEmbed()
           .setColor('#ff0000')
           .setTitle('Invalid Arguments')
@@ -185,6 +160,7 @@ client.on('message',async message => {
     }
   }
 
+//Run Node.JS Command while returning the console output.
   if (devcommand === 'eval') {
     syncStats()
     if (message.author.id === package.ownerID) {
@@ -195,47 +171,39 @@ client.on('message',async message => {
         if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
 
-        message.channel.send(clean(evaled), {code:"xl"});
+        let evalEmbed = new Discord.RichEmbed()
+          .setColor('#32a852')
+          .setTitle('Node.JS Eval')
+          .setTimestamp()
+          .setDescription("Input: \n```js\n" + code + "\n```\n\nResult: \n```js\n" + clean(evaled), {code:"xl"} + "\n```");
+        message.channel.send(evalEmbed);
       } catch (err) {
-        message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+        let evalEmbed = new Discord.RichEmbed()
+          .setColor('#ff0000')
+          .setTitle('Error')
+          .setTimestamp()
+          .setDescription(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+        message.channel.send(evalEmbed);
       }
     }
   }
   
-  //Restart Discord Bot
+//Restarts Discord Bot
   if (devcommand === "restart") {
     syncStats()
     if (message.author.id === package.ownerID) {
       message.channel.send('Bot it now Restarting. Good Night :first_quarter_moon_with_face: :bed: ');
       client.user.setActivity('Bot is Restarting...');
-      resetBot(message.channel);
+      require("./module/restart/main").init(message.channel);
     } else {
       message.reply('you do not have permissions to use this devcommand,\n so ***a s c e n d*** to the 4th ***d i m e n s i o n***');
     }
-
-    //if (message.author.id === package.ownerID){
-    //  let evalEmbed = new Discord.RichEmbed()
-    //    .setColor('#ff0000')
-    //    .setTitle('Uh Oh!')
-    //    .setAuthor('Command Disabled')
-    //    .setTimestamp()
-    //    .setDescription('The `restart` Command has been disabled since it has not been working for a while,\nThere will be an update in the future to fix this bug.\n\nSorry for the inconvenience!');
-    //  message.channel.send(evalEmbed);
-    //} if (message.author.id !== package.ownerID) {
-    //  message.reply('You do not have permission to access this developer command.');
-    //}
-
   }
 
-  //Changes the Rich Presence
+//Changes the Rich Presence
   if (devcommand === 'rpc') {
     syncStats()
     var game = args.slice(0).join(" ");
-
-
-    // only the sender that has the same userID as the ownerID varaible in package.json can access this devcommand
-
-    //Checking if the sender is a certian user
     if (message.author.id === package.ownerID) {
 
       //reset devcommand
@@ -251,9 +219,15 @@ client.on('message',async message => {
         message.channel.send('***Rich Presence has been updated to:*** \n' + "`" + game + "`");
       }
     }
-    else{message.reply('You do not have permissions to use this developer command.');}
+    else{
+      message.reply('You do not have permissions to use this developer command.');
+    }
   }
+
+//Executes *nix Shell Commands as the user that the bot was ran under
+//Please do not run as root <3
   if (devcommand === "shell") {
+    syncStats()
     let script = args.slice(0).join(' ');
 
     if (message.author.id === package.ownerID) {
@@ -268,6 +242,53 @@ client.on('message',async message => {
       setTimeout(function() { message.channel.send(evalEmbed) }, 5000);
     }
   }
+
+//Creates Invite from the ServerID given.
+//Only if the bot is in that server.
+  if (devcommand === "createinvitefromid") {
+    if (message.author.id === package.ownerID){
+        let guildid = args.slice(0).join(' ');
+        let guild = client.guilds.get(guildid);
+        if (!guild) return message.reply("The bot isn't in the guild with this ID.");
+
+        guild.fetchInvites()
+            .then(invites => message.channel.send('Found Invites:\nhttps://discord.gg/' + invites.map(invite => invite.code).join('\n')))
+            .catch(console.error);
+    }
+  }
+
+//Get all server invites 
+  if (devcommand === "getallserverinvite") {
+    if (message.author.id === package.ownerID){
+      var invites = ["I am required else it won't work"], ct = 0;
+      client.guilds.forEach(g => {
+        g.fetchInvites().then(guildInvites => {
+          invites[invites.length + 1] = (g + " - `Invites: " + guildInvites.array().join(", ") + "`");
+          ct++;
+
+          if(ct >= client.guilds.size) {
+            for(let i = 0; i < invites.length; i++) {
+              if(invites[i] == undefined) invites.splice(i, 1);
+            }
+            invites.shift();
+
+            for(let i = 0; i < invites.length; i++) invites[i] = "- " + invites[i];
+            invites = invites.join("\n\n");
+
+            let embed = new Discord.RichEmbed()
+              .setTitle("All Invites:")
+              .setDescription(invites);
+              message.channel.send(embed);
+          }
+        }).catch(err => {
+            ct++;
+        });
+      }); 
+    } else {
+      message.reply("this command can only be used by a developer.");
+    }
+  }
+
 });
 
 
@@ -276,7 +297,6 @@ client.on("message", async message => {
     if (message.content.indexOf(prefix.default) !== 0) return;
     const args = message.content.slice(prefix.default.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
-
 
   //Basic ping command
   if (command === "ping") {
@@ -310,7 +330,7 @@ client.on("message", async message => {
       author: {name:'s!help'},
       fields: [{
         name: 'Help Description',
-        value: 'The Command Dictionary has been *permanently* moved to ***http://seedbot.jyles.club/#commands***'
+        value: 'The Command Dictionary have been *permanently* moved to ***http://seedbot.jyles.club/#commands***'
       }],
       timestamp: 'Command Requested at ' + new Date(),
       footer: {
@@ -325,7 +345,7 @@ client.on("message", async message => {
       author: {name: 's!support'},
       fields: [{
         name: 'Bot Support',
-        value: 'If you need help with the bot join our discord `http://jyles.club/redirect.php?page=discord`\n Or you can email us at `contact@dariox.club`'
+        value: 'If you need help with the bot join our discord `http://seedbot.jyles.club/invite`\n Or you can email us at `contact@dariox.club`'
       }],
       timestamp: 'Command Requested at ' + new Date(),
       footer: {
@@ -335,18 +355,32 @@ client.on("message", async message => {
   }
   if (command === "patreon") {
     syncStats()
-	message.channel.send({embed: {
-		color: 329514,
-		author: {name: 's!patreon'},
-		fields: [{
-			name: 'Patreon',
-			value: "It's not free to run a discord bot and since more people are starting to use SeedBot I made a patreon page \n so people can give me money to run my discord bot so it can handle more people at once (which is what it is struggling at), also so when we get more money I can hire someone to make modules for the bot and in the future make a dashboard so you have a better experience.\n\n If you want all of these good things that other bots have then Donate to our patreon page at:\n https://patreon.com/jyles_coadward",
-		}],
-		timestamp: 'Command Requested at ' + new Date(),
-		footer: {
-			text: 'Requested by ' + message.author.username
-		}
-	}});
+    message.channel.send({embed: {
+      color: 329514,
+      author: {name: 's!patreon'},
+      fields: [{
+        name: 'Patreon',
+        value: "It's not free to run a discord bot and since more people are starting to use SeedBot I made a patreon page \n so people can give me money to run my discord bot so it can handle more people at once (which is what it is struggling at), also so when we get more money I can hire someone to make modules for the bot and in the future make a dashboard so you have a better experience.\n\n If you want all of these good things that other bots have then Donate to our patreon page at:\n https://patreon.com/jyles_coadward",
+      }],
+      timestamp: 'Command Requested at ' + new Date(),
+      footer: {
+        text: 'Requested by ' + message.author.username
+      }
+    }});
+  }
+  if (command === "info") {
+    syncStats()
+    message.channel.send({embed: {
+      color: 124517,
+      fields: [{
+        name: 'SeedBot Info',
+        value: "Version: " + package.version + "\nBuild: " + package.build + "\nBranch: " + package.branch + "\nOwner ID: " + package.ownerID + "\nBot Filename: " + package.main
+      }],
+      timestamp: 'Command Requested at ' + new Date(),
+      footer: {
+        text: 'Requested by ' + message.author.username
+      }
+    }})
   }
 
 //Moderation commands ___________________________________________________________________________
@@ -436,17 +470,7 @@ client.on("message", async message => {
     if (command === 'rps') {
     syncStats()
       let choice = args.join(" ").toLowerCase();
-      if (choice === '') return message.reply("Please specify either rock, paper or scissors.");
-      if (choice !== "rock" && choice !== "paper" && choice !== "scissors") return message.reply(`Please specify either rock, paper or scissors. ${choice} isn't one of those :P`);
-      message.reply(random());
-
-      let evalEmbed = new Discord.RichEmbed()
-        .setColor('#ff0000')
-        .setTitle('Uh Oh!')
-        .setAuthor('Command Disabled')
-        .setTimestamp()
-        .setDescription('The `rps` (rock, paper, scissors) Command has been disabled since it has not been working for a while,\nThere will be an update in the future to fix this bug.\n\nSorry for the inconvenience!');
-      message.channel.send(evalEmbed);
+      message.channel.send(require('./modules/fun/rps.js').cmd(choice));
     }
     if (command === 'punch') {
     syncStats()
@@ -467,120 +491,39 @@ client.on("message", async message => {
       }
     }
     if (command === 'hammer') {
-    syncStats()
+      syncStats()
       let user = message.mentions.users.first();
       if (message.mentions.users.first() < 1){ return message.reply('You can\'t throw a hammer at the wall silly, ping someone after the command.')}
       message.channel.send(`${message.author.username} threw a sledge hammer at ${message.mentions.users.first().username}. <:hammmer:${settings.hammer}>`)
     }
     if (command === 'ppsize') {
-    syncStats()
-        let sizecomment; let ppgraphsize;
-        let maxppsize = 24;
-        let minppsize = 1;
-
-        let ppsize = Math.floor(Math.random() * maxppsize) + minppsize;
-
-        while (ppgraphsize.length !== ppsize) {
-            ppgraphsize += '=';
-        }
-
-        let ppgraph = '8' && ppgraphsize && '>'
-
-
-        if (ppsize <= 2) {
-            sizecomment = "that's small, have you gone through puberty yet?";
-        }
-        if (ppsize <= 5) {
-            sizecomment = "I guess that's ok?";
-        }
-        if (ppsize >= 6) {
-            sizecomment = "Wowiees that's a decent size pp";
-        }
-        if (ppsize >= 12) {
-            sizecomment = "'That's a big fella!'";
-        }
-        if (ppsize >= 20) {
-            sizecomment = 'How is that even possible!';
-        }
-
-        let finalEmbedMessage = new Discord.RichEmbed
-            .setColor('#0099ff')
-            .setTitle('PP Size')
-            .addFeild('Size (' && ppsize && ' inches)', ppgraph)
-            .addFeild('Size Comment', sizecomment)
-            .setTimestamp();
-        message.channel.send(finalEmbedMessage);
-
+      syncStats()
+      message.channel.send(require('./modules/fun/ppsize.js').cmd());
     }
     if (command === 'magic8ball') {
-    syncStats()
-        let magic8ballresponses = require('./fun/8ball.json');
-        let responseNumber = Math.floor(Math.random() * 20) + 1;
-
-        let response = responseNumber.magic8ballreponses;
-
-        message.reply(response);
+      syncStats()
+      message.reply(require('./modules/fun/8ball.js').cmd());
 
     }
     if (command === "asciify") {
-    syncStats()
-        let text = args.slice(0).join(' ');
-        if (text.length > 0) {
-            //Asciify Stuff Here
-            message.channel.send('```' && asciify(text, {font: 'Doom'}) && '```');
-        } else {
-            let finalEmbedMessage = new Discord.RichEmbed
-                .setColor('#0099ff')
-                .addFeild('Syntax Error', 'No Text Specified');
-            message.channel.send(finalEmbedMessage);
-        }
+      syncStats()
+      let text = args.slice(0).join(' ');
+      message.channel.send(require('./modules/fun/asciify/main.js').cmd(text));
+
+    }
+    if (command === "copypasta") {
+      syncStats();
+      message.channel.send(require('./modules/fun/copypasta.js').cmd());
     }
 
 
 
 
   //DMOJ Plugin (minified)
+  const problems = require('./modules/dmoj/problem.js');const contests = require('./modules/dmoj/contest.js');const users = require('./modules/dmoj/user.js');
   if(command==='problem'){if(args.length===2&&args[1]==='-l'){problems.get(args[0],!0,message)}else{problems.get(args[0],!1,message)}};if(command==='contest'){if(args.length===2&&args[1]==='-l'){contests.get(args[0],!0,message)}else{contests.get(args[0],!1,message)}};if(command==='user'){if(args.length===2&&args[1]==='-l'){users.get(args[0],!0,message)}else{users.get(args[0],!1,message)}};if(command==='search'){message.reply('Working on it...').then(message=>{message.delete(5000)});if(args.length===2&&args[1]==='-l'){problems.search(args[0],!0,message)}else{problems.search(args[0],!1,message)}};if(command==='contest-search'){message.reply('Working on it...').then(message=>{message.delete(5000)});if(args.length===2&&args[1]==='-l'){contests.search(args[0],!0,message)}else{contests.search(args[0],!1,message)}};if(command==='user-search'){message.reply('Working on it...').then(message=>{message.delete(5000)});if(args.length===2&&args[1]==='-l'){users.search(args[0],!0,message)}else{users.search(args[0],!1,message)}};
 
   
-});
-
-//Wikipedia Plugin
-client.on('message',async message => {
-  if (message.author.bot) return;
-  if (message.content.indexOf(prefix.wiki) !== 0) return;
-  const args = message.content.slice(prefix.wiki.length).trim().split(/ +/g);
-  const wikicommand = args.shift().toLowerCase();
-
-  if (command === "searcharticle") {
-    syncStats()
-    let query = args.slice(0).join(' ');
-    let options = {
-      query: query,
-      format: "xml",
-      summaryOnly: true,
-    };
-    wikipedia.searchArticle(options, function(err, wikiText){
-      if (err) {
-        cosole.log("An error occurred in the Wiki Plugin [query=%s, error=%s]", query, err);
-        return;
-      }
-      var parseString = require('xml2js').parseString;
-      var xml = wikiXML
-      parseString(xml, function (err, result) {
-        console.dir(wikiJSON);
-      });
-      let evalEmbed = new Discord.RichEmbed()
-        .setColor('#000099')
-        .setTitle('Uh Oh!')
-        .setAuthor('Command Disabled')
-        .setTimestamp()
-        .setDescription('');
-      message.channel.send(evalEmbed);
-    })
-
-  }
-
 });
 
 
@@ -608,7 +551,7 @@ client.on('message',async message => {
 
 
 client.on("ready", () => {
-    syncStats()
+  syncStats()
     signal.info('Bot started at ' + new Date())
     signal.info(`Bot has started, with ` + client.users.size + ` users, in ` + client.channels.size + ` channels of ` + client.guilds.size + ` guilds.`);
 
@@ -618,17 +561,16 @@ client.login(config.token);
 
 const music = require('discord.js-musicbot-addon');
 music.start(client, {
-	youtubeKey:config.ytapi,
-	cooldown:{
-		disabled:false,
-		timer:10
-	},
-	botPrefix: prefix.music,
-	anyoneCanSkip: false,
-	anyoneCanAdjust: true,
-	inlineEmbeds: false,
-	logging: false
+  youtubeKey:config.ytapi,
+  cooldown:{
+    disabled:false,
+    timer:10
+  },
+  botPrefix: prefix.music,
+  anyoneCanSkip: false,
+  anyoneCanAdjust: true,
+  inlineEmbeds: false,
+  logging: false
 });
-
 
 

@@ -1,8 +1,8 @@
 {
   "branch": "canary",
   "name": "SeedBot",
-  "version": "1.2.4",
-  "build": "823",
+  "version": "1.2.7",
+  "build": "842",
   "description": "SeedBot Canary",
   "ownerID": "230485481773596672",
   "engines": {
@@ -18,6 +18,8 @@
     "child_process": "^1.0.2",
     "discord.js": "^11.5.1",
     "discord.js-musicbot-addon": "^13.5.2",
+    "external-ip": "^2.1.1",
+    "figlet": "^1.2.4",
     "jquery": "^3.4.1",
     "opusscript": "0.0.6",
     "public-ip": "^3.1.0",
