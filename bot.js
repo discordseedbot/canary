@@ -128,7 +128,7 @@ client.on('message',async message => {
         message.channel.send(evalEmbed);
       }
       if (type === "channelcount") {
-        let channelcount = client.channels.count;
+        let channelcount = client.channels.size;
 
         let evalEmbed = new Discord.RichEmbed()
           .setColor('#90d190')
@@ -137,7 +137,7 @@ client.on('message',async message => {
           .setDescription(channelcount);
         message.channel.send(evalEmbed);
       }
-      if (type !== "channelcount" || type !== "serverlist" || type !== "usercount") {
+      else {
         let evalEmbed = new Discord.RichEmbed()
           .setColor('#ff0000')
           .setTitle('Invalid Arguments')
@@ -152,7 +152,10 @@ client.on('message',async message => {
 
 //Run Node.JS Command while returning the console output.
   if (devcommand === 'eval') {
-    syncStats()
+    syncStats();
+    message.channel.send(require('./modules/error.js').disabled(devcommand,message.author.username));
+
+
     if (message.author.id === package.ownerID) {
       try {
         const code = args.join(" ");
@@ -165,7 +168,7 @@ client.on('message',async message => {
           .setColor('#32a852')
           .setTitle('Node.JS Eval')
           .setTimestamp()
-          .setDescription("Input: \n```js\n" + code + "\n```\n\nResult: \n```js\n" + clean(evaled), {code:"xl"} + "\n```");
+          .setDescription("Input: \n```js\n" + code + "\n```\n\nResult: \n```\n" + clean(evaled), {code:"xl"} + "\n```");
         message.channel.send(evalEmbed);
       } catch (err) {
         let evalEmbed = new Discord.RichEmbed()
@@ -293,13 +296,11 @@ client.on("message", async message => {
     syncStats()
     const m = await message.channel.send("Ping?");
     m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. \nAPI Latency is ${Math.round(client.ping)}ms`);
-    signal.command("A user executed s!ping");
   }
 
   //Basic commands
   if (command === "invite") {
     syncStats()
-      message.reply("Take me to your leader!\n http://seedbot.jyles.club/invite");
       message.channel.send({embed: {
         color: 329514,
         author: {name:'s!invite'},
@@ -364,7 +365,7 @@ client.on("message", async message => {
       color: 124517,
       fields: [{
         name: 'SeedBot Info',
-        value: "Version: " + package.version + "\nBuild: " + package.build + "\nBranch: " + package.branch + "\nOwner ID: " + package.ownerID + "\nBot Filename: " + package.main
+        value: "**Version:** " + package.version + "\n**Build:** " + package.build + "\n**Branch:** " + package.branch + "\n**Owner ID:** " + package.ownerID + "\n**Bot Filename:** " + package.main
       }],
       timestamp: 'Command Requested at ' + new Date(),
       footer: {
@@ -498,7 +499,8 @@ client.on("message", async message => {
     }
     if (command === "asciify") {
       syncStats()
-      let text = args.slice(0).join(' '); message.channel.send(require('./modules/fun/asciify/main.js').cmd(text));
+      //let text = args.slice(0).join(' '); message.channel.send(require('./modules/asciify/main.js').cmd(text));
+      message.channel.send(require('./modules/error.js').disabled(command, message.author.username));
 
     }
     if (command === "copypasta") {
