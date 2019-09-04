@@ -1,7 +1,6 @@
-const package = require('./package.json');
+const package = require('./../package.json');
 
-
-modules.export.info = function() {
+module.exports.info = function(username) {
   return {embed: {
     color: 124517,
     fields: [{
@@ -10,11 +9,11 @@ modules.export.info = function() {
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
-      text: 'Requested by ' + message.author.username
+      text: 'Requested by ' + username
     }
   }};
 }
-modules.export.patreon = function() {
+module.exports.patreon = function(username) {
   return {embed: {
     color: 329514,
     author: {name: 's!patreon'},
@@ -24,11 +23,11 @@ modules.export.patreon = function() {
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
-      text: 'Requested by ' + message.author.username
+      text: 'Requested by ' + username
     }
   }};
 }
-modules.export.support = function() {
+module.exports.support = function(username) {
   return {embed: {
     color: 329514,
     author: {name: 's!support'},
@@ -38,11 +37,11 @@ modules.export.support = function() {
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
-      text: 'Requested by ' + message.author.username
+      text: 'Requested by ' + username
     }
   }};
 }
-modules.export.help = function() {
+module.exports.help = function(username) {
   return {embed: {
     color: 329514,
     author: {name:'s!help'},
@@ -52,11 +51,11 @@ modules.export.help = function() {
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
-      text: 'Requested by ' + message.author.username
+      text: 'Requested by ' + username
     }
   }};
 }
-modules.export.invite = function() {
+module.exports.invite = function(username) {
   return {embed: {
     color: 329514,
     author: {name:'s!invite'},
@@ -66,7 +65,7 @@ modules.export.invite = function() {
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
-      text: 'Requested by ' + message.author.username
+      text: 'Requested by ' + username
     }
   }};
 }
