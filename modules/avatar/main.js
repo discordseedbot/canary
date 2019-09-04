@@ -1,7 +1,7 @@
-modules.export.cmd = function(avatar, mentionusername, username) {
-      if (usermentiofirst.length > 0) {
-      	return `Avatar for, **${mentionusername}:**\n${avatar}`;
+module.exports.cmd = function(mentionusername, mentionavatar, username, usernameavatar) {
+      if (mentionusername.length > 0) {
+      	return "Avatar for, **" + mentionusername + "**\n" + mentionavatar;
       } else {
-      	return `Avatar for, **${username}:**\n${avatar}`;
+      	return "Avatar for, **" + username + ":**\n" + usernameavatar;
       }
 }

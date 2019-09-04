@@ -399,7 +399,7 @@ client.on("message", async message => {
     }
     if (command === 'avatar') {
     syncStats()
-      message.channel.send(require('./modules/avatar/main.js').avatar(message.mentions.users.size ? message.mentions.users.first().avatarURL : message.author.avatarURL, message.mentions.users.first().username, message.author.username));
+    let argx;let argy; if (args.length > 0) {argx=message.mentions.users.first().username}else{argx=false}; if(args.length > 0){argy=message.mentions.users.first().avatarURL}else{argy=false}; message.channel.send(require('./modules/avatar/main.js').cmd(argx, argy, message.author.username, message.author.avatarURL));
     }
     if (command === 'hammer') {
       syncStats()

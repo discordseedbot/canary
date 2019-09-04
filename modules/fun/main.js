@@ -1,10 +1,11 @@
-const package = require('./../package.json');
 const ballResponseList = require('./8ball.json');
+const package = require('./../../package.json');
 const copypastadb = require("./copypasta.json");
 const copypastachoiceArray = require("./copypastaArray.json");
 
 
 module.exports.copypasta = function() {
+	copypastaReset:
 	var selection;
 	let ceiling = 20;
 	let choiceArray = Math.floor(Math.random() * ceiling);
@@ -50,7 +51,11 @@ module.exports.copypasta = function() {
 		case 19:
 			selection = copypastadb.fuckkpop;break;
 	}
-	return selection;
+	if (selection === undefined) {
+		return require('./main.js').copypasta();
+	} else {
+		return selection;
+	}
 }
 
 
@@ -63,7 +68,7 @@ module.exports.rps = function(choice) {
         return "Please specify either rock, paper or scissors.";
       }
       if (choice !== "rock" && choice !== "paper" && choice !== "scissors") {
-        return "Please specify either rock, paper or scissors. " + choice + " isn't one of those :P";
+        return "Please specify either rock, paper or scissors. `" + choice + "` isn't one of those :P";
       }
 
 
@@ -115,11 +120,11 @@ module.exports.rps = function(choice) {
 }
 
 
-modules.export.punch = function(user) {
+module.exports.punch = function(user) {
       if(user !== package.ownerID){
-          message.reply('You have punched <@' + user.id + '>')
+          return 'You have punched <@' + user + '>';
       } else {
-          message.reply("you can't hurt him you pleblord.")
+          return "you can't hurt him you pleblord.";
       }
 }
 
@@ -169,64 +174,64 @@ module.exports.magic8ball = function() {
 	let responseNumber = Math.floor(Math.random() * 20) + 1;
 	switch(responseNumber) {
 		case 1:
-			reply = responseList.aa;
+			reply = ballResponseList.aa;
 			break;
 		case 2:
-			reply = responseList.bb;
+			reply = ballResponseList.bb;
 			break;
 		case 3:
-			reply = responseList.cc;
+			reply = ballResponseList.cc;
 			break;
 		case 4:
-			reply = responseList.dd;
+			reply = ballResponseList.dd;
 			break;
 		case 5:
-			reply = responseList.ee;
+			reply = ballResponseList.ee;
 			break;
 		case 6:
-			reply = responseList.ff;
+			reply = ballResponseList.ff;
 			break;
 		case 7:
-			reply = responseList.gg;
+			reply = ballResponseList.gg;
 			break;
 		case 8:
-			reply = responseList.hh;
+			reply = ballResponseList.hh;
 			break;
 		case 9:
-			reply = responseList.ii;
+			reply = ballResponseList.ii;
 			break;
 		case 10:
-			reply = responseList.jj;
+			reply = ballResponseList.jj;
 			break;
 		case 11:
-			reply = responseList.kk;
+			reply = ballResponseList.kk;
 			break;
 		case 12:
-			reply = responseList.ll;
+			reply = ballResponseList.ll;
 			break;
 		case 13:
-			reply = responseList.rrq;
+			reply = ballResponseList.rrq;
 			break;
 		case 14:
-			reply = responseList.nn;
+			reply = ballResponseList.nn;
 			break;
 		case 15:
-			reply = responseList.oo;
+			reply = ballResponseList.oo;
 			break;
 		case 16:
-			reply = responseList.pp;
+			reply = ballResponseList.pp;
 			break;
 		case 17:
-			reply = responseList.qq;
+			reply = ballResponseList.qq;
 			break;
 		case 18:
-			reply = responseList.rr;
+			reply = ballResponseList.rr;
 			break;
 		case 19:
-			reply = responseList.ss;
+			reply = ballResponseList.ss;
 			break;
 		case 20:
-			reply = responseList.ow;
+			reply = ballResponseList.ow;
 			break;
 	}
 	return reply;
