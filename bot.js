@@ -157,27 +157,11 @@ client.on('message',async message => {
 
 
     if (message.author.id === package.ownerID) {
-      try {
         const code = args.join(" ");
         let evaled = eval(code);
 
         if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
-
-        let evalEmbed = new Discord.RichEmbed()
-          .setColor('#32a852')
-          .setTitle('Node.JS Eval')
-          .setTimestamp()
-          .setDescription("Input: \n```js\n" + code + "\n```\n\nResult: \n```\n" + clean(evaled), {code:"xl"} + "\n```");
-        message.channel.send(evalEmbed);
-      } catch (err) {
-        let evalEmbed = new Discord.RichEmbed()
-          .setColor('#ff0000')
-          .setTitle('Error')
-          .setTimestamp()
-          .setDescription(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
-        message.channel.send(evalEmbed);
-      }
     }
   }
   
@@ -361,6 +345,7 @@ client.on("message", async message => {
   }
   if (command === "info") {
     syncStats()
+    message.channel.send(require('./modules/basic.js').info(message.author.username));
     message.channel.send({embed: {
       color: 124517,
       fields: [{
@@ -465,21 +450,11 @@ client.on("message", async message => {
     }
     if (command === 'punch') {
     syncStats()
-      let user = message.mentions.users.first()
-      if(user.id !== package.ownerID){
-          message.reply('You have punched <@' + user.id + '>')
-      } else {
-          message.reply("you can't hurt him you pleblord.")
-      }
+      message.channel.send(require('./modules/fun/punch.js').cmd(message.mentions.users.first().id))
     }
     if (command === 'avatar') {
     syncStats()
-      let avatar = message.mentions.users.size ? message.mentions.users.first().avatarURL : message.author.avatarURL;
-      if (message.mentions.users.size > 0) {
-          message.channel.send(`Avatar for, **${message.mentions.users.first().username}:**\n${avatar}`);
-      } else {
-        message.channel.send(`Avatar for, **${message.author.username}:**\n${avatar}`);
-      }
+      message.channel.send(require('./modules/avatar/main.js').cmd(message.mentions.users.size ? message.mentions.users.first().avatarURL : message.author.avatarURL, message.mentions.users.first().username, message.author.username));
     }
     if (command === 'hammer') {
       syncStats()
@@ -495,13 +470,11 @@ client.on("message", async message => {
     if (command === 'magic8ball') {
       syncStats()
       message.reply(require('./modules/fun/8ball.js').cmd());
-
     }
     if (command === "asciify") {
       syncStats()
       //let text = args.slice(0).join(' '); message.channel.send(require('./modules/asciify/main.js').cmd(text));
       message.channel.send(require('./modules/error.js').disabled(command, message.author.username));
-
     }
     if (command === "copypasta") {
       syncStats(); 
