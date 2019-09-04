@@ -391,15 +391,15 @@ client.on("message", async message => {
     if (command === 'rps') {
     syncStats()
       let choice = args.join(" ").toLowerCase();
-      message.channel.send(require('./modules/fun/rps.js').cmd(choice));
+      message.channel.send(require('./modules/fun/main.js').rps(choice));
     }
     if (command === 'punch') {
     syncStats()
-      message.channel.send(require('./modules/fun/punch.js').cmd(message.mentions.users.first().id))
+      message.channel.send(require('./modules/fun/main.js').punch(message.mentions.users.first().id))
     }
     if (command === 'avatar') {
     syncStats()
-      message.channel.send(require('./modules/avatar/main.js').cmd(message.mentions.users.size ? message.mentions.users.first().avatarURL : message.author.avatarURL, message.mentions.users.first().username, message.author.username));
+      message.channel.send(require('./modules/avatar/main.js').avatar(message.mentions.users.size ? message.mentions.users.first().avatarURL : message.author.avatarURL, message.mentions.users.first().username, message.author.username));
     }
     if (command === 'hammer') {
       syncStats()
@@ -409,12 +409,12 @@ client.on("message", async message => {
     }
     if (command === 'ppsize') {
       syncStats()
-      //message.channel.send(require('./modules/fun/ppsize.js').cmd());   
+      //message.channel.send(require('./modules/fun/main.js').ppsize());   
       message.channel.send(require('./modules/error.js').disabled(command, message.author.username));
     }
     if (command === 'magic8ball') {
       syncStats()
-      message.reply(require('./modules/fun/8ball.js').cmd());
+      message.reply(require('./modules/fun/main.js').magic8ball());
     }
     if (command === "asciify") {
       syncStats()
@@ -423,7 +423,7 @@ client.on("message", async message => {
     }
     if (command === "copypasta") {
       syncStats(); 
-       message.channel.send(require('./modules/fun/copypasta.js').cmd());
+       message.channel.send(require('./modules/fun/main.js').copypasta());
     }
 
 
