@@ -5,7 +5,7 @@ module.exports.info = function(username) {
     color: 124517,
     fields: [{
       name: 'SeedBot Info',
-      value: "**Version:** " + package.version + "\n**Build:** " + package.build + "\n**Branch:** " + package.branch + "\n**Owner ID:** " + package.ownerID + "\n**Bot Filename:** " + package.main
+      value: "**Version:** " + package.version + "\n**Build:** " + package.build + "\n**Branch:** " + package.branch + "\n**Owner ID:** " + package.ownerID + "\n**Bot Filename:** " + package.main + "**API Web Address:** http://api.seedbot.xyz"
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
@@ -33,7 +33,7 @@ module.exports.support = function(username) {
     author: {name: 's!support'},
     fields: [{
       name: 'Bot Support',
-      value: 'If you need help with the bot join our discord `http://seedbot.jyles.club/invite`\n Or you can email us at `contact@dariox.club`'
+      value: 'If you need help with the bot join our discord `http://seedbot.xyz/?page=support`\n Or you can email us at `contact@dariox.club`'
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
@@ -47,7 +47,7 @@ module.exports.help = function(username) {
     author: {name:'s!help'},
     fields: [{
       name: 'Help Description',
-      value: 'The Command Dictionary have been *permanently* moved to ***http://seedbot.jyles.club/#commands***'
+      value: 'The Command Dictionary have been *permanently* moved to ***http://seedbot.xyz/#commands***'
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
@@ -61,7 +61,7 @@ module.exports.invite = function(username) {
     author: {name:'s!invite'},
     fields: [{
       name: 'Bot Invite Link',
-      value: 'Take me to your leader!\nhttp://seedbot.jyles.club/invite'
+      value: 'Invite me to your *own* Discord Server!\nhttp://seedbot.xyz/?page=invite'
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
