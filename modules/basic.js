@@ -33,7 +33,7 @@ module.exports.support = function(username) {
     author: {name: 's!support'},
     fields: [{
       name: 'Bot Support',
-      value: 'If you need help with the bot join our discord `http://seedbot.xyz/?page=support`\n Or you can email us at `contact@dariox.club`'
+      value: 'If you need help with the bot join our discord `http://seedbot.xyz/?page=discord`\n Or you can email us at `contact@dariox.club`'
     }],
     timestamp: 'Command Requested at ' + new Date(),
     footer: {
