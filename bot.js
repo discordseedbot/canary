@@ -425,9 +425,11 @@ client.on("message", async message => {
       syncStats(); 
        message.channel.send(require('./modules/fun/main.js').copypasta());
     }
-    if (command === "youtubetools") {
+    if (command === "youtube") {
       syncStats();
-      message.channel.send(require('./modules/error.js').developing());
+      //message.reply("`" + args.slice(0).join(" ") + "`")
+      //message.channel.send(require('./modules/error.js').developing());
+      message.channel.send(require('./modules/youtube/main.js').cmd(args.toString()))
     }
 
 
