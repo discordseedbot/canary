@@ -429,7 +429,7 @@ client.on("message", async message => {
       syncStats();
       //message.reply("`" + args.slice(0).join(" ") + "`")
       //message.channel.send(require('./modules/error.js').developing());
-      message.channel.send(require('./modules/youtube/main.js').cmd(args.toString()))
+      message.channel.send(require('./modules/youtube/main.js').cmd(args.toString(),message.author.username))
     }
 
 

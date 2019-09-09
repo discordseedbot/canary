@@ -1,6 +1,6 @@
 const youtuberror = require('./errors.json');
 
-module.exports.cmd = function(rawargs) {
+module.exports.cmd = function(rawargs,username) {
 	var args = rawargs.substr(8, rawargs.length -1);
 	var command = rawargs.substr(0,7);
 	console.log(command)
@@ -9,11 +9,12 @@ module.exports.cmd = function(rawargs) {
 		return youtuberror.nocommandreply;
 	} else{
 		if (command === "randcmt") {
-			if (args.length < 1) {
-				return youtuberror.novideolinkreply;
-			} else {
-				return require('./randomcomment.js').init(args);
-			}
+			//if (args.length < 1) {
+			//	return youtuberror.novideolinkreply;
+			//} else {
+			//	return require('./randomcomment.js').init(args);
+			//}
+			return require('./../error.js').disabled("s!youtube randcmt",username);
 		} 
 		if (command === "vidinfo") {
 			if (args.length < 1) {
