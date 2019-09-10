@@ -3,8 +3,6 @@ const youtuberror = require('./errors.json');
 module.exports.cmd = function(rawargs,username) {
 	var args = rawargs.substr(8, rawargs.length -1);
 	var command = rawargs.substr(0,7);
-	console.log(command)
-	console.log(args)
 	if (command.length < 1) {
 		return youtuberror.nocommandreply;
 	} else{
@@ -20,7 +18,7 @@ module.exports.cmd = function(rawargs,username) {
 			if (args.length < 1) {
 				return youtuberror.novideolinkreply;
 			} else {
-				return require('./videoinfo.js').init(args);
+				return require('./videoinfo.js').cmd(args);
 			}
 		}
 		else {
