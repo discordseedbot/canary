@@ -1,6 +1,6 @@
 const youtuberror = require('./errors.json');
 
-module.exports.cmd = function(rawargs,username) {
+module.exports.init = function(rawargs,username) {
 	var args = rawargs.substr(8, rawargs.length -1);
 	var command = rawargs.substr(0,7);
 	if (command.length < 1) {

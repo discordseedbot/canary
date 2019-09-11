@@ -1,6 +1,6 @@
 const Discord = require("discord.js"); const { RichEmbed } = require('discord.js'); const client = new Discord.Client(); const figlet = require('figlet');; const fs = require('fs');const prefix = require('./prefix.json'); function wait(ms){var d=new Date();var d2=null;do{d2=new Date()}while(d2-d<ms);}
 
-
+function sleep(ms){return new Promise(resolve=>{setTimeout(resolve,ms);});};
 
 //Stastic Command
 function syncStats(){require("./modules/stats/main.js").sync(client.users.size,client.channels.size,client.guilds.size);};
@@ -429,7 +429,9 @@ client.on("message", async message => {
       syncStats();
       //message.reply("`" + args.slice(0).join(" ") + "`")
       //message.channel.send(require('./modules/error.js').developing());
-      message.channel.send(require('./modules/youtube/main.js').cmd(args.toString(),message.author.username))
+      let output = require('./modules/youtube/main.js').init(args.toString(),message.author.username);
+      await sleep(10000)
+      message.channel.send(output)
     }
 
 

@@ -1,53 +1,52 @@
-const fetchVideoInfo = require('youtube-info');
-module.exports.cmd = function(rawargs) {
-	var videoID = rawargs.substr(32, 42)
-	fetchVideoInfo(videoID, function (err, videoInfo) {
-		if (err) throw new Error(err);
-		var measuredTime = new Date(null);
-		measuredTime.setSeconds(videoInfo.duration);
-		duration = measuredTime.toISOString().substr(11, 8).substring(3);
+const ytdl = require('ytdl-core');
 
-		const videoTitle = videoInfo.title;
-		const linkURL = videoInfo.url;
-		const commentCount = videoInfo.commentCount
-		const viewCount = videoInfo.views;
-		const publishDate = videoInfo.datePublished;
-		const likeCount = videoInfo.likeCount;
-		const dislikeCount = videoInfo.dislikeCount;
-		const videoThumbnailUrl = videoInfo.thumbnailUrl;
+function sleep(ms){
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
+}
 
-		const channelName = videoInfo.owner;
-		const channelURL = "https://youtube.com/channel/" + videoInfo.channelId;
-		const channelThumbnail = videoInfo.channelThumbnailUrl;
-		const richEmbedResult = {embed: {
-			title: videoTitle,
-			url: linkURL,
+String.prototype.toMMSS = function () {
+    var sec_num = parseInt(this, 10); // don't forget the second param
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return minutes+':'+seconds;
+}
+
+module.exports.cmd = async function(rawargs) {
+	var videoID = rawargs.substr(32, 42);
+	var videoInfo; var output;
+		ytdl.getInfo(videoID, function(err, info) {
+			videoInfo = info
+		})
+	await sleep(4000)
+		output = {embed: {
+			title: videoInfo.title.toString().replace("\'", "'"),
+			url: videoInfo.video_url,
 			author: {
-				name: channelName,
-				url: channelURL,
-				icon_url: channelThumbnail
+				name: videoInfo.player_response.videoDetails.author,
+				url: videoInfo.author.channel_url
 			},
 			fields: [
 				{
-					name: "View Count:",
-					value: viewCount + " views"
+					name: "Basic Info",
+					value: videoInfo.player_response.videoDetails.viewCount + " views\nDuration: " + videoInfo.player_response.videoDetails.lengthSeconds.toMMSS() + "\nCategory: " + videoInfo.media.category + "\nAge Restricted (true/false): " + videoInfo.age_restricted
 				},
 				{
-					name: "Like and Dislike Count",
-					value: ":thumbsup: " + likeCount + "\n:thumbsdown: " + dislikeCount
-				},
-				{
-					name: "Comment Count",
-					value: commentCount + " comments"
-				},
-				{
-					name: "Publish Date:",
-					value: publishDate + "(DD-MM-YYYY)"
+					name: "Description",
+					value: videoInfo.player_response.videoDetails.shortDescription
 				}
 			],
-			thumbnail: videoThumbnailUrl,
+			thumbnail: "https://i.ytimg.com/vi/" + videoInfo.player_response.videoDetails.videoId + "/hqdefault.jpg",
 			timestamp: "Requested at: " + new Date()
 		}};
-	});
-	setTimeout(function(richEmbedResult){console.log(richEmbedResult), 5000})
+	await sleep(5000)
+	console.log(output)
+
+	return output;
 }
