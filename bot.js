@@ -13,10 +13,10 @@ const options={disabled:!1,interactive:!1,stream:process.stdout,types:{command:{
 //Check what branch SeedBot is running on
 if (package.branch == "canary") {var branch = "Canary";}if (package.branch === "stable") {var branch = "Stable";}
 
-signal.info("Starting SeedBot...");
-signal.info("Copyright 2018-2019, jyles.club and DARiOX.club");
-signal.info("Branch: " + branch);
-signal.info('Running SeedBot ' + branch + " (" + ver + ", build" + build +")");
+signal.info("# starting seedbot...");
+signal.info("# copyright 2018-2019, seedbot.xyz");
+signal.info("# branch: " + branch);
+signal.info('# running Seedbot ' + branch + " (" + ver + ", build" + build +")");
 
 //Math command
 client.on('message',async message=>{if(message.author.bot)return;if(message.content.indexOf(prefix.math)!==0)return;const args=message.content.slice(prefix.math.length).trim().split(/ +/g);const devcommand=args.shift().toLowerCase();if(message.content.startsWith(prefix.math)){let calculate="="+message.content.toLowerCase().substring(prefix.math.length);if(isFinite(calculate.replace(/\=|\+|\-|\*|\/|\÷|\%|\(|\)|\,|\ |math.|pow|sqrt|round|floor|ceiling|ceil|pi|π|euler|absolute|abs|exp|logarithm|log|random|rand|rng/g,''))){calculate=calculate.replace(/ /g,"").replace(/÷/g,"/").replace(/power|pow/g,"Math.pow").replace(/sqrt|squareroot/g,"Math.sqrt").replace(/round/g,"Math.round").replace(/floor/g,"Math.floor").replace(/ceiling|ceil/g,"Math.ceil").replace(/pi|π/g,"Math.PI").replace(/euler/g,"Math.E").replace(/absolute|abs/g,"Math.abs").replace(/exp/g,"Math.exp").replace(/logarithm|log/g,"Math.log").replace(/random|rand|rng/g,"Math.random()");if(calculate.replace(/[^%]/g,"").length>0){for(let i=0;i<calculate.replace(/[^%]/g,"").length;i++){while((calculate[getSubstringIndex(calculate,"%",i+1)+1]=="+"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="-"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="*"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="/"||calculate[getSubstringIndex(calculate,"%",i+1)+1]=="("||calculate[getSubstringIndex(calculate,"%",i+1)+1]==")"||calculate[getSubstringIndex(calculate,"%",i+1)+1]==","||getSubstringIndex(calculate,"%",i+1)+1==calculate.length)&&calculate.replace(/[^%]/g,"").length>0){for(let j=getSubstringIndex(calculate,"%",i+1);j>-1;j--){if(calculate[j]=="="||calculate[j]=="+"||calculate[j]=="-"||calculate[j]=="*"||calculate[j]=="/"||calculate[j]=="("||calculate[j]==")"||calculate[j]==","){calculate=calculate.substring(0,j+1)+(calculate.substring(j+1,getSubstringIndex(calculate,"%",i+1))/100)+calculate.substring(getSubstringIndex(calculate,"%",i+1)+1,calculate.length);break}}}}}calculate=calculate.replace(/=/g,"");if(isFinite(eval(calculate)))message.channel.send(eval(calculate));console.log(eval(calculate))}}})
@@ -31,7 +31,7 @@ client.on('message',async message => {
 //Fetches Public Internet Protocol Address
   if (devcommand === "getip") {
     syncStats()
-      const extIP = require('external-ip'); let useragent = "+SeedBot-" && package.version && " http://seedbot.jyles.club"; let getIP = extIP({ eplace: true, services: ['http://dxcdn.net/api/public-ip.php'], timeout: 600, getIP: 'parallel', userAgent: useragent});
+      const extIP = require('external-ip'); let useragent = "+SeedBot-" && package.version && " http://seedbot.xyz"; let getIP = extIP({ eplace: true, services: ['http://dxcdn.net/api/public-ip.php'], timeout: 600, getIP: 'parallel', userAgent: useragent});
     let type = args.slice(0).join(' ');
     if (message.author.id === package.ownerID){
       getIP((err, ip) => {
@@ -391,15 +391,15 @@ client.on("message", async message => {
     if (command === 'rps') {
     syncStats()
       let choice = args.join(" ").toLowerCase();
-      message.channel.send(require('./modules/fun/main.js').rps(choice));
+      message.channel.send(require('./modules/fun/rockpaper.js').init(choice));
     }
     if (command === 'punch') {
     syncStats()
-      message.channel.send(require('./modules/fun/main.js').punch(message.mentions.users.first().id))
+      message.channel.send(require('./modules/fun/punch.js').init(message.mentions.users.first().id))
     }
     if (command === 'avatar') {
     syncStats()
-    let argx;let argy; if (args.length > 0) {argx=message.mentions.users.first().username}else{argx=false}; if(args.length > 0){argy=message.mentions.users.first().avatarURL}else{argy=false}; message.channel.send(require('./modules/avatar/main.js').cmd(argx, argy, message.author.username, message.author.avatarURL));
+    let argx;let argy; if (args.length > 0) {argx=message.mentions.users.first().username}else{argx=false}; if(args.length > 0){argy=message.mentions.users.first().avatarURL}else{argy=false}; message.channel.send(require('./modules/avatar.js').init(argx, argy, message.author.username, message.author.avatarURL));
     }
     if (command === 'hammer') {
       syncStats()
@@ -409,21 +409,21 @@ client.on("message", async message => {
     }
     if (command === 'ppsize') {
       syncStats()
-      //message.channel.send(require('./modules/fun/main.js').ppsize());   
+      //message.channel.send(require('./modules/fun/ppsize.js').init());   
       message.channel.send(require('./modules/error.js').disabled(command, message.author.username));
     }
     if (command === 'magic8ball') {
       syncStats()
-      message.reply(require('./modules/fun/main.js').magic8ball());
+      message.reply(require('./modules/fun/magic8ball.js').init());
     }
     if (command === "asciify") {
       syncStats()
-      //let text = args.slice(0).join(' '); message.channel.send(require('./modules/asciify/main.js').cmd(text));
+      //let text = args.slice(0).join(' '); message.channel.send(require('./modules/asciify.js').cmd(text));
       message.channel.send(require('./modules/error.js').disabled(command, message.author.username));
     }
     if (command === "copypasta") {
       syncStats(); 
-       message.channel.send(require('./modules/fun/main.js').copypasta());
+       message.channel.send(require('./modules/fun/copypasta.js').init());
     }
     if (command === "youtube") {
       syncStats();

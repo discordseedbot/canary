@@ -1,7 +1,7 @@
 node_modules/
 config.json
-package-lock.json
-stats/users.txt
-stats/channels.txt
-stats/guilds.txt
+modules/stats/*.txt
+modules/stats/*.csv
+config.json
+config.json
 config.json
