@@ -431,7 +431,7 @@ client.on("message", async message => {
       //message.channel.send(require('./modules/error.js').developing());
       let output = require('./modules/youtube/main.js').init(args.toString(),message.author.username);
       await sleep(10000)
-      message.channel.send(output)
+      console.log(Promise.resolve(output))
     }
 
 

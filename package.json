@@ -23,6 +23,7 @@
     "node-gyp": "^5.0.3",
     "opusscript": "0.0.6",
     "rebuild": "^0.1.2",
+    "rxjs": "^6.5.3",
     "signale": "^1.4.0",
     "syncprompt": "^2.0.0",
     "util": "^0.12.1",

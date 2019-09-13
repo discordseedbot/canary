@@ -16,7 +16,7 @@ module.exports.init = function(rawargs,username) {
 		} 
 		if (command === "vidinfo") {
 			if (args.length < 1) {
-				resultxd youtuberror.novideolinkreply;
+				resultxd = youtuberror.novideolinkreply;
 			} else {
 				resultxd = require('./videoinfo.js').cmd(args);
 			}

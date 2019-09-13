@@ -22,21 +22,17 @@ String.prototype.toMMSS = function () {
 module.exports.cmd = async function(rawargs) {
 	var videoID = rawargs.substr(32, 42);
 	var videoInfo; var output;
-		ytdl.getInfo(videoID, function(err, info) {
-			videoInfo = info
-		})
-	await sleep(4000)
+	ytdl.getInfo(videoID, function(err, info) {videoInfo = info;})
+	await sleep(3500)
 	output = new Discord.RichEmbed()
 		.setColor("#ff0000")
-		.setTitle(videoInfo.title)
-		.setURL(videoInfo.video_url)
+		.setTitle(videoInfo.player_response.videoDetails.title)
+		.setURL("https://youtube.com/watch?v=" + videoInfo.player_response.videoDetails.videoId)
 		.setAuthor(videoInfo.player_response.videoDetails.author, videoInfo.author.avatar, videoInfo.author.channel_url)
 		.setImage("https://i.ytimg.com/vi/" + videoInfo.player_response.videoDetails.videoId + "/hqdefault.jpg")
 		.addField("Description", videoInfo.player_response.videoDetails.shortDescription)
 		.addField("Video Information", videoInfo.player_response.videoDetails.viewCount + " views\nDuration: " + videoInfo.player_response.videoDetails.lengthSeconds.toMMSS() + "\nCategory: " + videoInfo.media.category + "\nAge Restricted (true/false): " + videoInfo.age_restricted)
 		.setTimestamp()
 	await sleep(5000)
-	console.log(output)
-
-	return output;
+	return output;	
 }

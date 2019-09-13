@@ -1,7 +1,8 @@
 node_modules/
-config.json
-modules/stats/*.txt
-modules/stats/*.csv
-config.json
-config.json
+package-lock.json
+modules/stats/users.txt
+modules/stats/channels.txt
+modules/stats/guilds.txt
+modules/stats/version.txt
+.DS_Store
 config.json
