@@ -6,13 +6,14 @@ module.exports.cmd = function(prefix, commandname) {
 const Discord = require("discord.js");
 const { RichEmbed } = require("discord.js");
 const client = new Discord.Client();
-const token = require("./../../token.json");
+const token = require("./../token.json");
 
-module.exports.cmd = function(prefix, commandname) {
+module.exports.init = function(prefix, commandname) {
 	client.on('message',async message => {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
+		const command = args.shift().toLowerCase();
 
 		switch (command) {
 			case commandname:
@@ -27,7 +28,7 @@ module.exports.cmd = function(prefix, commandname) {
 	})
 
 	client.on('ready', () => {
-		require("./functions/console.js").cmdloaded("command");
+		//require("./functions/console.js").cmdloaded("command");
 	})
 
 

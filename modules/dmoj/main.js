@@ -4,11 +4,13 @@ const client = new Discord.Client();
 const token = require("./../../token.json");
 const prefix = require("./../../prefix.json").dmoj;
 
-module.exports.cmd = function() {
+module.exports.init = function() {
+	require("./../functions/console.js").modloaded("DMOJ");
 	client.on('message',async message => {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
+		const command = args.shift().toLowerCase();
 
 			const problems = require('./problem.js');
 			const contests = require('./contest.js');
@@ -59,7 +61,12 @@ module.exports.cmd = function() {
 	})
 
 	client.on('ready', () => {
-		require("./../functions/console.js").modloaded("DMOJ");
+		require('./../functions/console.js').cmdloaded("s!dmoj problem")
+		require('./../functions/console.js').cmdloaded("s!dmoj contest")
+		require('./../functions/console.js').cmdloaded("s!dmoj user")
+		require('./../functions/console.js').cmdloaded("s!dmoj search")
+		require('./../functions/console.js').cmdloaded("s!dmoj contest-search")
+		require('./../functions/console.js').cmdloaded("s!dmoj user-search")
 	})
 
 

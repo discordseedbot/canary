@@ -9,6 +9,7 @@ module.exports.cmd = function() {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
+		const command = args.shift().toLowerCase();
 
 		switch (command) {
 			case 'getip':
@@ -26,12 +27,11 @@ module.exports.cmd = function() {
 								.setTimestamp()
 								.setDescription('Global IP Address:\n```\n' + ip + "\n```");
 							message.channel.send(evalEmbed);
-							break;
 						});
 				}else{
 					message.reply('You do not have permission to use this developer command\nSorry!');
-					break;
 				}
+				break;
 		}
 	})
 

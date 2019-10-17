@@ -5,6 +5,7 @@ const token = require("./../../token.json");
 const prefix = require("./../../prefix.json").music;
 
 module.exports.cmd = function() {
+	require("./../functions/console.js").modloaded("music");
 	const music = require('discord.js-musicbot-addon');
 	music.start(client, {
 	  youtubeKey: token.youtubeapi,
@@ -20,7 +21,7 @@ module.exports.cmd = function() {
 	});
 
 	client.on('ready', () => {
-		require("./../console.js").modloaded("music");
+		require('./../functions/console.js').cmdloaded("music")
 	})
 
 	client.login(token.discord);

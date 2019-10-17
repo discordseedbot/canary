@@ -1,6 +1,5 @@
 module.exports.init = function() {
 	require('./../functions/console.js').modloaded("Basic")
-	setTimeout(function() {
 		require('./help.js').cmd()
 		require('./invite.js').cmd()
 		require('./ping.js').cmd()
@@ -9,5 +8,4 @@ module.exports.init = function() {
 		require('./roadmap.js').cmd()
 		require('./guide.js').cmd()
 		require('./avatar.js').cmd()
-	},1000)
 }

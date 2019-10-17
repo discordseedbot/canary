@@ -11,6 +11,7 @@ module.exports.cmd = function() {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
+		const command = args.shift().toLowerCase();
 
 		switch (command) {
 			case 'magic8ball':
@@ -83,7 +84,7 @@ module.exports.cmd = function() {
 	});
 
 	client.on('ready', () => {
-		require("./../console.js").cmdloaded("s!magic8ball");
+		require("./../../functions/console.js").cmdloaded("s!magic8ball");
 	});
 
 

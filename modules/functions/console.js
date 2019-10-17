@@ -13,7 +13,7 @@ const options = {
 			color: 'red',
 			label: 'Error'
 		},
-		modLoaded: {
+		modLoad: {
 			badge: '$$',
 			color: 'blueBright',
 			label: 'Module Loaded'
@@ -36,4 +36,7 @@ module.exports.info = function (content) {
 }
 module.exports.fatal = function (content) {
 	signaledef.fatal(content);
+}
+module.exports.debug = function (content) {
+	signaledef.debug(content);
 }
