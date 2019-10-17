@@ -14,7 +14,7 @@ module.exports.cmd = function() {
 		
 		var schedule = require("node-schedule");
 		var rule = new schedule.RecurrenceRule();
-		rule.minute = 15;
+		rule.minute = 1;
 		schedule.scheduleJob(rule, function() {
 			require('./function.js').apiReqSend("userCount", client.users.size)
 			require('./function.js').apiReqSend("guildCount", client.guilds.size)
