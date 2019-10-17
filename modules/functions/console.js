@@ -5,15 +5,18 @@ const options = {
 	types: {
 		cmdLoad: {
 			badge:' ##',
-			color: 'blueBright'
+			color: 'blueBright',
+			label: 'Command Loaded'
 		},
 		botError: {
 			badge: '!!',
-			color: 'red'
+			color: 'red',
+			label: 'Error'
 		},
 		modLoaded: {
 			badge: '$$',
-			color: 'blueBright'
+			color: 'blueBright',
+			label: 'Module Loaded'
 		}
 	}
 };

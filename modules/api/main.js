@@ -5,7 +5,7 @@ const token = require("./../../token.json");
 const prefix = require("./../../prefix.json").default;
 const package = require("./../../package.json");
 
-module.exports.cmd = function() {
+module.exports.init = function() {
 	client.on('message',async message => {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
