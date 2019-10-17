@@ -1,9 +1,10 @@
-const signale = require("signale");
-const { Signalee } = require("signale");
+const signaledef = require("signale");
+const { Signale } = require("signale");
+
 const options = {
 	types: {
 		cmdLoad: {
-			badge: '#',
+			badge:' ##',
 			color: 'blueBright'
 		},
 		botError: {
@@ -11,21 +12,25 @@ const options = {
 			color: 'red'
 		},
 		modLoaded: {
-			badge: '$',
+			badge: '$$',
 			color: 'blueBright'
 		}
-}
+	}
+};
+//const signal = new Signale(options);
 
 module.exports.init = function() {
-	signale.fatal("Inpropper use of console module, please look over your code <3");
-	process.exit();
+	signaledef.fatal("Inpropper use of console module, please look over your code <3"); process.exit();
 }
-module.exports.cmdloaded = function (loadedCommand) {
-	customsignale.cmdLoad("Loaded " + loadedCommand);
+module.exports.cmdloaded = function (loadedCommand) {const signal = new Signale(options);
+	signal.cmdLoad("Loaded " + loadedCommand);
 }
-module.exports.modloaded = function (modName) {
-	customsignale.modLoad("Loaded " + modName + " module");
+module.exports.modloaded = function (modName) {const signal = new Signale(options);
+	signal.modLoad("Loaded " + modName + " module");
 }
 module.exports.info = function (content) {
-	signale.info(content);
+	signaledef.info(content);
+}
+module.exports.fatal = function (content) {
+	signaledef.fatal(content);
 }

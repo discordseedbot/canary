@@ -1,8 +1,4 @@
 node_modules/
 package-lock.json
-modules/stats/users.txt
-modules/stats/channels.txt
-modules/stats/guilds.txt
-modules/stats/version.txt
 .DS_Store
-config.json
+token.json
