@@ -12,18 +12,19 @@ module.exports.cmd = function() {
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
 
 		switch (command) {
-			case 'punch':
-				if(message.mentions.users.first().id !== package.ownerID){
-					return 'You have punched <@' + user + '>';
-				} else {
-					return "you can't hurt him you pleblord.";
-				}
+			case 'invite':
+				let evalEmbed = new Discord.RichEmbed()
+					.setColor(require("./../functions/main.js").randomhexcolor())
+					.setTitle(response.invite.title)
+					.setDescription(response.invite.desc)
+					.setTimestamp()
+				message.channel.send(evalEmbed);
 				break;
 		}
 	});
 
 	client.on('ready', () => {
-		require("./../console.js").cmdloaded("s!punch");
+		require("./../functions/console.js").cmdloaded("s!invite");
 	})
 
 

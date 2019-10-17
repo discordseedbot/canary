@@ -6,24 +6,22 @@ const tokens = require("./../../token.json");
 const prefix = require("./../../prefix.json").default;
 
 module.exports.cmd = function() {
-	client.on('message',async message => {
+	client.on('message',async message =>{
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
-		var args = message.content.slice(prefix.length).trim().split( / +/g);
+		var args = message.content.slice(prefix.length).trim().split(/ +/g);
 
 		switch (command) {
-			case 'punch':
-				if(message.mentions.users.first().id !== package.ownerID){
-					return 'You have punched <@' + user + '>';
-				} else {
-					return "you can't hurt him you pleblord.";
-				}
+			case 'ping':
+				const m = await message.channel.send("Ping?");
+				m.edit(`Pong! Latency is ${m.createdTimestamp - message.createdTimestamp}ms. \nAPI Latency is ${Math.round(client.ping)}ms`);
+				break;
 				break;
 		}
-	});
+	})
 
 	client.on('ready', () => {
-		require("./../console.js").cmdloaded("s!punch");
+		require("./../functions/console.js").cmdloaded("s!ping");
 	})
 
 

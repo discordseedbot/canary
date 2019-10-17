@@ -6,24 +6,26 @@ const tokens = require("./../../token.json");
 const prefix = require("./../../prefix.json").default;
 
 module.exports.cmd = function() {
+module.exports.cmd = function() {
 	client.on('message',async message => {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
 
 		switch (command) {
-			case 'punch':
-				if(message.mentions.users.first().id !== package.ownerID){
-					return 'You have punched <@' + user + '>';
-				} else {
-					return "you can't hurt him you pleblord.";
-				}
+			case 'guide':
+				let evalEmbed = new Discord.RichEmbed()
+					.setColor(require("./../functions/main.js").randomhexcolor())
+					.setTitle(response.guide.title)
+					.setDescription(response.guide.desc)
+					.setTimestamp()
+				message.channel.send(evalEmbed);
 				break;
 		}
 	});
 
 	client.on('ready', () => {
-		require("./../console.js").cmdloaded("s!punch");
+		require("./../functions/console.js").cmdloaded("s!guide");
 	})
 
 

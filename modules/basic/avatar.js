@@ -12,18 +12,20 @@ module.exports.cmd = function() {
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
 
 		switch (command) {
-			case 'punch':
-				if(message.mentions.users.first().id !== package.ownerID){
-					return 'You have punched <@' + user + '>';
+			case 'avatar':
+				let avatar = message.mentions.users.size ? message.mentions.users.first().avatarURL : message.author.avatarURL;
+				if (message.mentions.users.size > 0) {
+					message.channel.send(`Avatar for, **${message.mentions.users.first().username}:**\n${avatar}`);
 				} else {
-					return "you can't hurt him you pleblord.";
+					message.channel.send(`Avatar for, **${message.author.username}:**\n${avatar}`);
 				}
+				message.channel.send(evalEmbed);
 				break;
 		}
 	});
 
 	client.on('ready', () => {
-		require("./../console.js").cmdloaded("s!punch");
+		require("./../functions/console.js").cmdloaded("s!help");
 	})
 
 

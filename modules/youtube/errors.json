@@ -1,5 +1,0 @@
-{
-	"invalidcommandreply": "The command that you have supplied is invalid, please look at the command list by typing: `s!help`",
-	"novideolinkreply": "You have not supplied a youtube video link.",
-	"nocommandreply": "You have not supplied a command, Please look at the commands list by typing this: `s!help`"
-}
