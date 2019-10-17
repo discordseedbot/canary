@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 const { RichEmbed } = require("discord.js");
 const client = new Discord.Client();
-const basic = require("./response.json");
 const token = require("./../../token.json");
 const prefix = require("./../../prefix.json").default;
 
@@ -12,18 +11,22 @@ module.exports.cmd = function() {
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
 
 		switch (command) {
-			case 'punch':
-				if(message.mentions.users.first().id !== package.ownerID){
-					return 'You have punched <@' + user + '>';
-				} else {
-					return "you can't hurt him you pleblord.";
-				}
+			case 'createinvitefromid':
+    if (message.author.id === package.ownerID){
+        let guildid = args.slice(0).join(' ');
+        let guild = client.guilds.get(guildid);
+        if (!guild) return message.reply("The bot isn't in the guild with this ID.");
+
+        guild.fetchInvites()
+            .then(invites => message.channel.send('Found Invites:\nhttps://discord.gg/' + invites.map(invite => invite.code).join('\n')))
+            .catch(console.error);
+    }
 				break;
 		}
-	});
+	})
 
 	client.on('ready', () => {
-		require("./../console.js").cmdloaded("s!punch");
+		require("./../functions/console.js").cmdloaded("s~createinvitefromid");
 	})
 
 

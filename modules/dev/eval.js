@@ -1,9 +1,8 @@
 const Discord = require("discord.js");
 const { RichEmbed } = require("discord.js");
 const client = new Discord.Client();
-const basic = require("./response.json");
 const token = require("./../../token.json");
-const prefix = require("./../../prefix.json").default;
+const prefix = require("./../../prefix.json").dev;
 
 module.exports.cmd = function() {
 	client.on('message',async message => {
@@ -12,18 +11,20 @@ module.exports.cmd = function() {
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
 
 		switch (command) {
-			case 'punch':
-				if(message.mentions.users.first().id !== package.ownerID){
-					return 'You have punched <@' + user + '>';
-				} else {
-					return "you can't hurt him you pleblord.";
+			case 'eval':
+				if (message.author.id === package.ownerID) {
+					const code = args.join(" ");
+					let evaled = eval(code);
+
+					if (typeof evaled !== "string"){break;}
+					evaled = require("util").inspect(evaled);
 				}
 				break;
 		}
-	});
+	})
 
 	client.on('ready', () => {
-		require("./../console.js").cmdloaded("s!punch");
+		require("./../functions/console.js").cmdloaded("s~eval");
 	})
 
 

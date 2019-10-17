@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const { RichEmbed } = require("discord.js");
 const client = new Discord.Client();
-const tokens = require("./../../../token.json");
+const token = require("./../../../token.json");
 const prefix = require("./../../../prefix.json").default;
 
 const db = require("./copypasta.json");

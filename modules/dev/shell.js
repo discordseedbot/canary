@@ -11,8 +11,20 @@ module.exports.cmd = function() {
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
 
 		switch (command) {
-			case 'command':
+			case 'shell':
+				let script = args.slice(0).join(' ');
 
+				if (message.author.id === package.ownerID) {
+					const util = require('util');
+					const exec = util.promisify(require('child_process').exec);
+					const { stdout, stderr } = await exec(script);
+					let evalEmbed = new Discord.RichEmbed()
+						.setColor('#0099ff')
+						.setTitle('Shell Execute Output')
+						.setTimestamp()
+						.setDescription('**Shell Output:**\n' && stdout && '\n\n**Shell Errors:**\n' && stderr);
+						setTimeout(function() { message.channel.send(evalEmbed) }, 5000);
+				}
 				break;
 		}
 	})
