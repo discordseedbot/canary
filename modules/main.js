@@ -24,12 +24,27 @@ module.exports.init = function () {
 		//Starts init function in the master file of the module.
 	require("./dmoj/main.js").init();
 	require("./basic/main.js").init();
-	require("./music/main.js").cmd();
 	require("./mod/main.js").init();
 	require("./fun/main.js").init();
 	require("./dev/main.js").init();
-	require("./api/main.js").init();
-	require("./youtube/main.js").init();
+
+	//Checks if the API token has been changed,
+	//then the API token does not get loaded.
+	if (token.api === "seedbot-api-token") {
+		require("./functions/console.js").warn("API Token has not been set, API Updated disabled.");
+	} else {
+		require("./api/main.js").init();
+	}
+
+	//Checks if the Youtube API token has been changed
+	//if it has not then the Yuotube and Music module
+	//does not get loaded.
+	if (token.youtue === "youtube-api-token"){
+		require("./functions/console.js").warn("Youtube API Token has not been set\ndisabled Music Module and Youtube Module.");
+	} else {
+		require("./youtube/main.js").init();
+		require("./music/main.js").cmd();
+	}
 
 	console.log("Loading Commands (this might take a while)")
 }
