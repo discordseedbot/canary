@@ -31,6 +31,12 @@ module.exports.cmdloaded = function (loadedCommand) {const signal = new Signale(
 module.exports.modloaded = function (modName) {const signal = new Signale(options);
 	signal.modLoad("Loaded " + modName + " module");
 }
+module.exports.apiSent = function (modName) {const signal = new Signale(options);
+	let now = new Date();
+	let date = now.getFullDay()+"-"+now.getFullMonth+"-"+now.getFullYear();
+	let time = now.getHours+":"+now.getMinutes+";"+now.getSeconds;
+	signal.modLoad("API Request Sent at: " + time + " " + date);
+}
 module.exports.info = function (content) {
 	signaledef.info(content);
 }

@@ -15,10 +15,7 @@ module.exports.init = function() {
 	client.on('ready', () => {
 		require("./../functions/console.js").modloaded("API");
 
-		var schedule = require("node-schedule");
-		var rule = new schedule.RecurrenceRule();
-		rule.minute = 1;
-		schedule.scheduleJob(rule, function() {
+		setInterval(function() {
 			require('./function.js').apiReqSend("userCount", client.users.size)
 			require('./function.js').apiReqSend("guildCount", client.guilds.size)
 			require('./function.js').apiReqSend("channelCount", client.channels.size)
@@ -29,7 +26,8 @@ module.exports.init = function() {
 			require('./function.js').apiReqSend("botOwnerID", package.ownerID)
 			require('./function.js').apiReqSend("packageName", package.name)
 			require('./function.js').apiReqSend("packageDescription", package.description)
-		})
+			require('./../functions/console.js').apiSent();
+		}, 60000);
 
 	});
 
