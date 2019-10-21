@@ -1,8 +1,8 @@
-const tokenJSON = requre('./token.json');
+const tokenJSON = require('./token.json');
+const package = require('./package.json');
 
 
-
-console.log("# Bot OwnerID Set to: " package.ownerID);
+console.log("# Bot OwnerID Set to: " + package.ownerID);
 
 //Checks if the varaible "discord" in token.json has
 //been changed, if it has not then the process is killed.
