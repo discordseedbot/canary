@@ -17,6 +17,11 @@ const options = {
 			badge: '$$',
 			color: 'blueBright',
 			label: 'Module Loaded'
+		},
+		apiSent: {
+			badge: '//',
+			color: 'yellow',
+			label: 'API Sent'
 		}
 	}
 };
@@ -33,9 +38,9 @@ module.exports.modloaded = function (modName) {const signal = new Signale(option
 }
 module.exports.apiSent = function (modName) {const signal = new Signale(options);
 	let now = new Date();
-	let date = now.getFullDay()+"-"+now.getFullMonth+"-"+now.getFullYear();
-	let time = now.getHours+":"+now.getMinutes+";"+now.getSeconds;
-	signal.modLoad("API Request Sent at: " + time + " " + date);
+	let date = now.getDate()+"-"+now.getMonth()+"-"+now.getFullYear();
+	let time = now.getHours()+":"+now.getMinutes()+";"+now.getSeconds();
+	signal.apiSent("API Request Sent at: " + time + " " + date);
 }
 module.exports.info = function (content) {
 	signaledef.info(content);

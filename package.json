@@ -2,7 +2,10 @@
   "branch": "canary-modular",
   "name": "SeedBot",
   "version": "1.3.3",
-  "build": ["863","21-10-2019"],
+  "build": [
+    "863",
+    "21-10-2019"
+  ],
   "description": "A Discord Bot for Developers by Developers, and some basic functions that every bot has.",
   "ownerID": "230485481773596672",
   "engines": {
@@ -19,6 +22,8 @@
     "discord.js-musicbot-addon": "^13.5.2",
     "external-ip": "^2.1.1",
     "figlet": "^1.2.4",
+    "http": "0.0.0",
+    "https": "^1.0.0",
     "node-schedule": "^1.3.2",
     "opusscript": "0.0.6",
     "signale": "^1.4.0",

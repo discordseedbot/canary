@@ -16,7 +16,7 @@ module.exports.init = function () {
 				require("./functions/console.js").debug(`Bot has started, with ` + client.users.size + ` users, in ` + client.channels.size + ` channels of ` + client.guilds.size + ` guilds.`);
 				client.user.setActivity(`Sound of Sorting - s!help`, { type: 'LISTENING'});
     			client.user.setStatus('online', "SeedBot Online");
-			},100000)
+			},130000)
 		});
 	client.login(token.discord);
 

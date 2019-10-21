@@ -25,6 +25,7 @@ module.exports.init = function() {
 			require('./function.js').apiReqSend("botBranch", package.branch)
 			require('./function.js').apiReqSend("botOwnerID", package.ownerID)
 			require('./function.js').apiReqSend("packageName", package.name)
+			require('./function.js').apiReqSend("botLicense", package.license)
 			require('./function.js').apiReqSend("packageDescription", package.description)
 			require('./../functions/console.js').apiSent();
 		}, 60000);
