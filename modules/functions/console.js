@@ -40,3 +40,6 @@ module.exports.fatal = function (content) {
 module.exports.debug = function (content) {
 	signaledef.debug(content);
 }
+module.exports.warn = function (content) {
+	signaledef.warn(content);
+}
