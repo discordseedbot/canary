@@ -79,6 +79,7 @@ module.exports.cmd = function() {
 						reply = responseList.ow;
 						break;
 				}
+				message.channel.send(reply)
 				break;
 			}
 	});

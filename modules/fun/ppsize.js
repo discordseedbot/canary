@@ -13,7 +13,7 @@ module.exports.cmd = function() {
 
 		switch (command) {
 			case 'ppsize':
-				let sizecomment; let ppgraphsize;
+				let sizecomment=""; let ppgraphsize="";
 				let maxppsize = 24;
 				let minppsize = 1;
 

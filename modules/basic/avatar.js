@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const { RichEmbed } = require("discord.js");
 const client = new Discord.Client();
-const basic = require("./response.json");
+const response = require("./response.json");
 const token = require("./../../token.json");
 const prefix = require("./../../prefix.json").default;
 
@@ -20,7 +20,6 @@ module.exports.cmd = function() {
 				} else {
 					message.channel.send(`Avatar for, **${message.author.username}:**\n${avatar}`);
 				}
-				message.channel.send(evalEmbed);
 				break;
 		}
 	});

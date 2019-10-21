@@ -15,8 +15,8 @@ module.exports.cmd = function() {
 
 		switch (command) {
 			case 'copypasta':
-				var selection;
-				while(selection.length > 1) {
+				var selection = "0";
+				do {
 					let ceiling = 29;
 					let choiceArray = Math.floor(Math.random() * ceiling);
 					switch(choiceArray) {
@@ -81,6 +81,7 @@ module.exports.cmd = function() {
 					}
 						message.channel.send(selection);
 				}
+				while(selection == "0");
 				break;
 		}
 	});

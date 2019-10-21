@@ -16,7 +16,7 @@ module.exports.init = function () {
 				require("./functions/console.js").debug(`Bot has started, with ` + client.users.size + ` users, in ` + client.channels.size + ` channels of ` + client.guilds.size + ` guilds.`);
 				client.user.setActivity(`Sound of Sorting - s!help`, { type: 'LISTENING'});
     			client.user.setStatus('online', "SeedBot Online");
-			},150000)
+			},100000)
 		});
 	client.login(token.discord);
 
@@ -28,7 +28,7 @@ module.exports.init = function () {
 	require("./mod/main.js").init();
 	require("./fun/main.js").init();
 	require("./dev/main.js").init();
-	//require("./api/main.js").init();
+	require("./api/main.js").init();
 	require("./youtube/main.js").init();
 
 	console.log("Loading Commands (this might take a while)")

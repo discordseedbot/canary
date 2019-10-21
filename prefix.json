@@ -3,5 +3,6 @@
 	"dev": "s~",
 	"music": "s?",
 	"math": "sm!",
-	"dmoj": "s!dmoj"
+	"dmoj": "s!dmoj",
+	"youtube": "s!yt"
 }

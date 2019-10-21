@@ -3,6 +3,7 @@ const { RichEmbed } = require("discord.js");
 const client = new Discord.Client();
 const token = require("./../../token.json");
 const prefix = require("./../../prefix.json").default;
+const figlet = require('figlet');
 
 module.exports.cmd = function() {
 	client.on('message',async message => {
@@ -13,19 +14,18 @@ module.exports.cmd = function() {
 
 		switch (command) {
 			case 'asciify':
+				var inputText = args.slice(0).join(' ');;
 				var reply;
 				figlet.text(inputText, {
-				    font: 'big',
+				    font: 'Big',
 				    horizontalLayout: 'default',
 				    verticalLayout: 'default'
 				}, function(err, data) {
 				    if (err) {
 				        message.channel.send('Something went wrong...');
 				        console.dir(err);
-				        return;
 				    }
-				    return data;
-					if (inputText.length > 0) {
+					else if (inputText.length > 0) {
 						message.channel.send("```" + data + "```");
 					} else {
 						let finalEmbedMessage = new Discord.RichEmbed

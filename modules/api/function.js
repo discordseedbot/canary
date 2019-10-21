@@ -4,7 +4,7 @@ const package = require('./../../package.json');
 
 function sleep(ms){return new Promise(resolve=>{setTimeout(resolve,ms)})}
 
-var curlUserAgent = '"SeedBot/' + package.version + ' / token: ' + token.api + '"';
+var curlUserAgent = 'user-agent: SeedBot/' + package.version + ' / token: ' + token.api + '';
 var curlRequest = "http://api.seedbot.xyz?req=";
 
 
@@ -22,6 +22,5 @@ module.exports.checkConnection = function() {
 module.exports.apiReqSend = async function(type, data) {
 	var result;
 	curl.setHeaders([curlHeader])
-		.get("http://api.seedbot.xyz?token=" + token.api +"&type=" + type +"&data=" + data)
-		.then(({statusCode, body, headers}) => {});
+		.get("http://api.seedbot.xyz?token=" + token.api +"&req=" + type +"&data=" + data).then(({statusCode, body, headers}) => {});
 }

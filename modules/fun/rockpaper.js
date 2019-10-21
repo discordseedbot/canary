@@ -13,6 +13,7 @@ module.exports.cmd = function() {
 
 		switch (command) {
 			case 'rps':
+				var choice = args.slice(0).join(' ');;
 				var botChoice;
 				var outcome;
 				var result;

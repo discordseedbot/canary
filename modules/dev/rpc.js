@@ -2,7 +2,8 @@ const Discord = require("discord.js");
 const { RichEmbed } = require("discord.js");
 const client = new Discord.Client();
 const token = require("./../../token.json");
-const prefix = require("./../../prefix.json").default;
+const prefix = require("./../../prefix.json").dev;
+const package = require('./../../package.json');
 
 module.exports.cmd = function() {
 	client.on('message',async message => {
@@ -12,7 +13,7 @@ module.exports.cmd = function() {
 		const command = args.shift().toLowerCase();
 
 		switch (command) {
-			case 'command':
+			case 'rpc':
 				var game = args.slice(0).join(" ");
 				if (message.author.id === package.ownerID) {
 

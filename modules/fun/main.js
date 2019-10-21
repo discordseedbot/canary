@@ -2,7 +2,8 @@
 module.exports.init = function() {
 	require('./../functions/console.js').modloaded("Fun")
 		require('./asciify.js').cmd()
-		require('./ppsize.js').cmd()
+		//require('./ppsize.js').cmd()
+		require('./../disabled.js').init("s!", "ppsize")
 		require('./punch.js').cmd()
 		require('./rockpaper.js').cmd()
 		require('./magic8ball/main.js').cmd()
