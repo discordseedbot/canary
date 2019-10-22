@@ -35,7 +35,7 @@ module.exports.cmd = function() {
 	});
 
 	client.on('ready', () => {
-		require("./../functions/console.js").modloaded("command");
+		require("./../functions/console.js").modloaded("Math");
 	})
 
 
