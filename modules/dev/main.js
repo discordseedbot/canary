@@ -1,4 +1,4 @@
-
+const token = require("./../../token.json");
 module.exports.init = function() {
 	require('./../functions/console.js').modloaded("Developer")
 		require('./getip.js').cmd()
@@ -10,4 +10,9 @@ module.exports.init = function() {
 		require('./shell.js').cmd()
 		require('./createinvitefromid.js').cmd()
 		require('./getallserverinvite.js').cmd()
+		if (token.api !== "seedbot-api-token"){
+			require('./getallserverinvite.js').cmd()
+		} else {
+			require("./../functions/console.ls").botError("API Token has not been changed, disabled 1 command.")
+		}
 }
