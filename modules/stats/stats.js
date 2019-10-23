@@ -107,7 +107,7 @@ module.exports.cmd = function() {
 						var defaultResponse = new Discord.Richembed()
 							.setColor("#ff0000")
 							.setTitle("Invalid Request")
-							.setDescription("You have either put no request, or an invalid request. For more information (click here)[https://seedbot.xyz?commands#s!stats].")
+							.setDescription("You have either put no request, or an invalid request. For more information (click here)[https://seedbot.xyz?commands].")
 						message.channel.send(defaultResponse);
 						break;
 				}
