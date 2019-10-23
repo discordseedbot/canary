@@ -9,6 +9,7 @@ module.exports.cmd = function() {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
+		const command = args.shift().toLowerCase();
 
 		switch (command) {
 			case 'purge':
@@ -18,15 +19,15 @@ module.exports.cmd = function() {
 				if (!amount) return message.reply('Must specify an amount to delete!');
 				if (!amount && !user) return message.reply('Must specify a user and amount, or just an amount, of messages to purge!');
 				// Fetch 100 messages (will be filtered and lowered up to max amount requested)
-				message.channel.fetchMessages({
-				 limit: 1000,
-				}).then((messages) => {
+				//message.channel.fetchMessages({
+				// limit: 100,
+				//}).then((messages) => {
 				 if (user) {
 				 const filterBy = user ? user.id : Client.user.id;
 				 messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
 				 }
 				 message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
-				});
+				//});
 
 				break;
 		}

@@ -1,3 +1,3 @@
-module.exports.init = functions() {
+module.exports.init = function() {
 	require("./stats.js").cmd();
 }

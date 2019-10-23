@@ -10,6 +10,7 @@ module.exports.cmd = function() {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
+		const command = args.shift().toLowerCase();
 
 		switch (command) {
 			case 'stats':
@@ -20,7 +21,7 @@ module.exports.cmd = function() {
 						var userCountResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot User Count")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(userCountResponse);
 						break;
 					case 'guildCount':
@@ -28,7 +29,7 @@ module.exports.cmd = function() {
 						var gulidCountResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Guild Count")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(gulidCountResponse);
 						break;
 					case 'channelCount':
@@ -36,7 +37,7 @@ module.exports.cmd = function() {
 						var channelCountResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Channel Count")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(channelCountResponse);
 						break;
 					case 'botVersion':
@@ -44,7 +45,7 @@ module.exports.cmd = function() {
 						var botVerResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Version")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(botVerResponse);
 						break;
 					case 'botBuild':
@@ -52,7 +53,7 @@ module.exports.cmd = function() {
 						var botBuildResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Bot Build")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(botBuildResponse);
 						break;
 					case 'botBuildDate':
@@ -60,7 +61,7 @@ module.exports.cmd = function() {
 						var buildDateResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Build Date")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(buildDateResponse);
 						break;
 					case 'botBranch':
@@ -68,7 +69,7 @@ module.exports.cmd = function() {
 						var branchResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Branch")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(branchResponse);
 						break;
 					case 'botOwnerID':
@@ -76,7 +77,7 @@ module.exports.cmd = function() {
 						var botOwnerIDResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Owner ID")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(botOwnerIDResponse);
 						break;
 					case 'packageName':
@@ -84,7 +85,7 @@ module.exports.cmd = function() {
 						var pkgNameResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Package Name")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(pkgNameResponse);
 						break;
 					case 'botLicense':
@@ -92,7 +93,7 @@ module.exports.cmd = function() {
 						var licenseResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot License")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(licenseResponse);
 						break;
 					case 'packageDescription':
@@ -100,14 +101,14 @@ module.exports.cmd = function() {
 						var pkgDescResponse = new Discord.RichEmbed()
 							.setColor(require("./../functions/main.js").randomhexcolor())
 							.setTitle("SeedBot Package Description")
-							.setDescription("Request:\n ```\n"+request+"```\n\nResponse: \n```"+response+"\n```")
+							.setDescription("Request:\n ```\n"+request+"```\nResponse: \n```"+response+"\n```")
 						message.channel.send(pkgDescResponse);
 						break;
 					default:
-						var defaultResponse = new Discord.Richembed()
+						var defaultResponse = new Discord.RichEmbed()
 							.setColor("#ff0000")
 							.setTitle("Invalid Request")
-							.setDescription("You have either put no request, or an invalid request. For more information (click here)[https://seedbot.xyz?commands].")
+							.setDescription("You have either put no request, or an invalid request. For more information [click here](https://seedbot.xyz?commands).")
 						message.channel.send(defaultResponse);
 						break;
 				}
