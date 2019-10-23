@@ -12,11 +12,15 @@ module.exports.cmd = function() {
 
 		switch (command) {
 			case 'screenshare':
-				var currentGuildID = bot.guilds.get(message.guild.id).id;
-				var response = new Discord.RichEmbed()
-					.setColor(require("./../functions/main.js").randomhexcolor())
-					.setTitle("Voice Chat Screen Share")
-					.setDescription("To screenshare in your current voice chat channel then [click here]("+screensharelink+")")
+				if (message.member.voiceChannel === undefined) { message.reply("Plesae Join a Voice Channel.") } else {;
+					var currentGuildID = message.guild.id;
+					var voiceChannelID = message.member.voiceChannel.id;
+					var screensharelink = "https://discordapp.com/"+currentGuildID+"/"+voiceChannelID;
+					var response = new Discord.RichEmbed()
+						.setColor(require("./../functions/main.js").randomhexcolor())
+						.setTitle("Voice Chat Screen Share")
+						.setDescription("To screenshare in your current voice chat channel then [click here]("+screensharelink+")")
+				}
 				break;
 		}
 	})
