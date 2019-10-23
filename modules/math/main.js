@@ -10,7 +10,7 @@ module.exports.cmd = function() {
 		if(message.author.bot)return;
 		if(message.content.indexOf(prefix)!==0)return;
 		const args=message.content.slice(prefix.length).trim().split(/ +/g);
-		const devcommand=args.shift().toLowerCase();
+
 		if(message.content.startsWith(prefix)){
 			let calculate="="+message.content.toLowerCase().substring(prefix.length);
 			if(isFinite(calculate.replace(/\=|\+|\-|\*|\/|\÷|\%|\(|\)|\,|\ |math.|pow|sqrt|round|floor|ceiling|ceil|pi|π|euler|absolute|abs|exp|logarithm|log|random|rand|rng/g,''))){
@@ -29,7 +29,6 @@ module.exports.cmd = function() {
 				}
 				calculate = calculate.replace(/=/g,"");
 				if(isFinite(eval(calculate)))message.channel.send(eval(calculate));
-				console.log(eval(calculate))
 			}
 		}
 	});

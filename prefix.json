@@ -2,7 +2,7 @@
 	"default": "s!",
 	"dev": "s~",
 	"music": "s?",
-	"math": "sm!",
+	"math": "s!math",
 	"dmoj": "s!dmoj",
 	"youtube": "s!yt"
 }

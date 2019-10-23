@@ -27,7 +27,7 @@ module.exports.init = function () {
 	require("./mod/main.js").init();
 	require("./fun/main.js").init();
 	require("./dev/main.js").init();
-	require("./math/main.js").init();
+	require("./math/main.js").cmd();
 
 	//Checks if the API token has been changed,
 	//then the API token does not get loaded.
