@@ -24,6 +24,19 @@ module.exports.cmd = function() {
 				data.push(guild.owner.user.uername + "#" + guild.owner.discriminator);
 				data.push(guild.roles.count);
 				data.push(guild.channels.count);
+				data.push(guild.iconURL)
+				var evalEmbed = new Discord.RichEmbed()
+					.setTitle("Guild Info")
+					.addField("Guild Name", data[0], true)
+					.addField("Guild ID", data[1], true)
+					.addField("Guild Creation Date", data[2], true)
+					.addField("Member Count", data[3], true)
+					.addField("Owner", data[4], true)
+					.addField("Role Count", data[5], true)
+					.addField("Challen Count", data[6], true)
+					.setAuthor(prefix+command)
+					.setTimestamp()
+					.setThumbnail(data[7])
 
 				message.channel.send(data);
 				break;
