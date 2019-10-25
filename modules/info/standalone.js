@@ -1,1 +1,1 @@
-reuqire("./main.js").init();
+require("./main.js").init();

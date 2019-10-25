@@ -16,18 +16,19 @@ module.exports.cmd = function() {
 				if (message.member.voiceChannel === undefined) { message.reply("Plesae Join a Voice Channel.") } else {;
 					var currentGuildID = message.guild.id;
 					var voiceChannelID = message.member.voiceChannel.id;
-					var screensharelink = "https://discordapp.com/"+currentGuildID+"/"+voiceChannelID;
+					var screensharelink = "https://discordapp.com/channels/"+currentGuildID+"/"+voiceChannelID;
 					var response = new Discord.RichEmbed()
 						.setColor(require("./../functions/main.js").randomhexcolor())
 						.setTitle("Voice Chat Screen Share")
 						.setDescription("To screenshare in your current voice chat channel then [click here]("+screensharelink+")")
+					message.channel.send(response)
 				}
 				break;
 		}
 	})
 
 	client.on('ready', () => {
-		require("./../functions/console.js").cmdloaded("s!sreenshare");
+		require("./../functions/console.js").cmdloaded("s!screenshare");
 	})
 
 

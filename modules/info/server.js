@@ -13,17 +13,15 @@ module.exports.cmd = function() {
 
 		switch (command) {
 			case 'serverinfo':
-				//var guildUserCount = guild.members.filter(member => !memger.user.bot).size;
-				//var guildOwner = guild.owner.user.uername + "#" + guild.owner.discriminator;
-				//var data = [guild.name, guild.id, guild.createdAt, guildUserCount, guildOwner, guildUSerCount, guild.roles.count, guild.channels.count];
+				const guild = client.guilds.get(message.guild.id);
 				var data = [];
 				data.push(guild.name);
 				data.push(guild.id);
 				data.push(guild.createdAt);
-				data.push(guild.members.filter(member => !member.user.bot).size);
-				data.push(guild.owner.user.uername + "#" + guild.owner.discriminator);
-				data.push(guild.roles.count);
-				data.push(guild.channels.count);
+				data.push(guild.members.size);
+				data.push(guild.member(guild.owner) ? guild.owner.toString() : guild.owner.user.tag);
+				data.push(guild.roles.size);
+				data.push(guild.channels.size);
 				data.push(guild.iconURL)
 				var evalEmbed = new Discord.RichEmbed()
 					.setTitle("Guild Info")
@@ -33,12 +31,12 @@ module.exports.cmd = function() {
 					.addField("Member Count", data[3], true)
 					.addField("Owner", data[4], true)
 					.addField("Role Count", data[5], true)
-					.addField("Challen Count", data[6], true)
+					.addField("Channel Count", data[6], true)
 					.setAuthor(prefix+command)
 					.setTimestamp()
 					.setThumbnail(data[7])
-
-				message.channel.send(data);
+				console.log(data);
+				message.channel.send(evalEmbed);
 				break;
 		}
 	})
@@ -46,7 +44,6 @@ module.exports.cmd = function() {
 	client.on('ready', () => {
 		require("./../functions/console.js").cmdloaded("s!serverinfo");
 	})
-
 
 	client.login(token.discord);
 }

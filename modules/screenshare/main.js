@@ -1,3 +1,3 @@
-modules.export.init = function() {
+module.exports.init = function() {
 	require("./screen.js").cmd();
 }

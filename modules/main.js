@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+	const Discord = require('discord.js');
 const package = require('./../package.json');
 const token = require('./../token.json');
 
@@ -28,6 +28,8 @@ module.exports.init = function () {
 	require("./fun/main.js").init();
 	require("./dev/main.js").init();
 	require("./math/main.js").cmd();
+	require("./screenshare/main.js").cmd();
+	require("./info/main.js").cmd();
 
 	//Checks if the API token has been changed,
 	//then the API token does not get loaded.
