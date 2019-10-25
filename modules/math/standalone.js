@@ -1,1 +1,1 @@
-require("./main.js").init()
+require("./main.js").cmd()

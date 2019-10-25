@@ -1,0 +1,1 @@
+reuqire("./main.js").init();
