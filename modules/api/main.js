@@ -14,6 +14,7 @@ module.exports.init = function() {
 
 	client.on('ready', () => {
 		require("./../functions/console.js").modloaded("API");
+		require("./function.js").online();
 
 		setInterval(function() {
 			require('./function.js').apiReqSend("userCount", client.users.size)
