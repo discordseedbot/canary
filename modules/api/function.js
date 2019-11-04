@@ -26,3 +26,21 @@ module.exports.apiReqSend = async function(type, data) {
 
 	https.get(url, (res) => {})
 }
+
+
+module.exports.offline = function() {
+	console.log("Sending Offline Message to API Server")
+	var result;
+	let url = "http://api.seedbot.xyz?token=" + token.api +"&req=isOnline&data=offline";
+
+	https.get(url, (res) => {
+		console.log("Sent Offline Message to API Server")
+		process.exit();
+	});
+}
+module.exports.online = function() {
+	var result;
+	let url = "http://api.seedbot.xyz?token=" + token.api +"&req=isOnline&data=online";
+
+	https.get(url, (res) => {})
+}
