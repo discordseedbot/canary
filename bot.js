@@ -1,17 +1,9 @@
 const tokenJSON = require('./token.json');
 const package = require('./package.json');
 
-function SendOfflineStuff(){
-	if (tokenJSON.api !== "seedbot-api-token"){
-		require("./modules/api/function.js").offline();
-		setTimeout(process.exit(), 20000);
-	} else {0
-		process.exit();
-	}
-}
-process.on('SIGINT', SendOfflineStuff());
-process.on('break', SendOfflineStuff());
-process.on('exit', SendOfflineStuff());
+process.on('SIGINT', require("./modules/api/functions.js").offline());
+process.on('break', require("./modules/api/functions.js").offline());
+process.on('exit', require("./modules/api/functions.js").offline());
 
 console.log("# Bot OwnerID Set to: " + package.ownerID);
 

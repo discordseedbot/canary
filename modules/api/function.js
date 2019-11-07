@@ -28,14 +28,13 @@ module.exports.apiReqSend = async function(type, data) {
 }
 
 
-module.exports.offline = function() {
+module.exports.offlineAPIRequest = function() {
 	console.log("Sending Offline Message to API Server")
 	var result;
 	let url = "http://api.seedbot.xyz?token=" + token.api +"&req=isOnline&data=offline";
 
 	https.get(url, (res) => {
-		console.log("Sent Offline Message to API Server")
-		process.exit();
+		console.log("Sent Offline Message to API Server");
 	});
 }
 module.exports.online = function() {
@@ -43,4 +42,12 @@ module.exports.online = function() {
 	let url = "http://api.seedbot.xyz?token=" + token.api +"&req=isOnline&data=online";
 
 	https.get(url, (res) => {})
+}
+module.exports.offline = function SendOfflineStuff(){
+	if (tokenJSON.api !== "seedbot-api-token"){
+		require("./function.js").offlineAPIRequest();
+		setTimeout(process.exit(), 20000);
+	} else {
+		process.exit();
+	}
 }
