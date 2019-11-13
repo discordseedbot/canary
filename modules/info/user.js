@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const { RichEmbed } = require("discord.js");
 
-module.exports.cmd = function(message, client) {
+module.exports.cmd = function(message, client, args) {
 	var user;
 	var userArgs = args.slice(0).join(" ");
 	if (userArgs.length > 1){

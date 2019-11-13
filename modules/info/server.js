@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const { RichEmbed } = require("discord.js");
+const prefix = require("./../../prefix.json").default;
 
 module.exports.cmd = function(message, client) {
 	const guild = client.guilds.get(message.guild.id);
@@ -21,9 +22,8 @@ module.exports.cmd = function(message, client) {
 		.addField("Owner", data[4], true)
 		.addField("Role Count", data[5], true)
 		.addField("Channel Count", data[6], true)
-		.setAuthor(prefix+command)
+		.setAuthor(prefix+"serverinfo")
 		.setTimestamp()
 		.setThumbnail(data[7])
-	console.log(data);
 	message.channel.send(evalEmbed);
 }
