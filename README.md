@@ -1,3 +1,5 @@
-# SeedBot [Canary]
+# SeedBot [Stabe]
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/64a6a96a1e3e6d3ed795/maintainability)](https://codeclimate.com/github/discordseedbot/canary/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/972739e7604231c8f6e1/maintainability)](https://codeclimate.com/github/discordseedbot/stable/maintainability)
+
+### [Install Guide](https://docs.seedbot.xyz/bot-install/guide-directory)
