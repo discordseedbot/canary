@@ -22,7 +22,7 @@ module.exports.init = function() {
 	})
 
 	client.on('ready', () => {
-		require("./../functions/console.js").modloaded("Info Commands");
+		require("./../functions/console.js").modloaded("Moderation Commands");
 	})
 
 	client.login(token.discord);
