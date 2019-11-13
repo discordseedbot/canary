@@ -44,7 +44,7 @@ module.exports.online = function() {
 	https.get(url, (res) => {})
 }
 module.exports.offline = function SendOfflineStuff(){
-	if (tokenJSON.api !== "seedbot-api-token"){
+	if (token.api !== "seedbot-api-token"){
 		require("./function.js").offlineAPIRequest();
 		setTimeout(process.exit(), 20000);
 	} else {

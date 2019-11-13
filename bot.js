@@ -1,9 +1,9 @@
+
+
 const tokenJSON = require('./token.json');
 const package = require('./package.json');
 
-process.on('SIGINT', require("./modules/api/functions.js").offline());
-process.on('break', require("./modules/api/functions.js").offline());
-process.on('exit', require("./modules/api/functions.js").offline());
+
 
 console.log("# Bot OwnerID Set to: " + package.ownerID);
 
@@ -22,5 +22,7 @@ switch (tokenJSON.discord) {
 			require('./modules/main.js').init();
 		}, 5000);
 };
-
-
+//process.stdin.resume();
+//process.on('SIGINT', require("./modules/api/function.js").offline());
+//process.on('break', require("./modules/api/function.js").offline());
+//process.on('exit', require("./modules/api/function.js").offline());
