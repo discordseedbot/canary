@@ -3,7 +3,7 @@
   "name": "SeedBot",
   "version": "1.3.5",
   "build": [
-    "883",
+    "884",
     "13-11-2019"
   ],
   "description": "A Discord Bot for Developers by Developers, and some basic functions that every bot has.",
@@ -38,5 +38,6 @@
   "bugs": {
     "url": "https://github.com/discordseedbot/canary/issues"
   },
-  "homepage": "https://seedbot.xyz"
+  "homepage": "https://seedbot.xyz",
+  "apiURL": "https://api.seedbot.xyz"
 }

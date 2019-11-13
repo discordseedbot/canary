@@ -36,6 +36,9 @@ module.exports.init = function() {
 			case 'avatar':
 				require('./avatar.js').cmd(message);
 				break;
+			case 'info':
+				require('./info.js').cmd(message);
+				break;
 		}
 	})
 
