@@ -10,7 +10,7 @@ console.log("# Bot OwnerID Set to: " + package.ownerID);
 //Checks if the varaible "discord" in token.json has
 //been changed, if it has not then the process is killed.
 switch (tokenJSON.discord) {
-	case 'bot-token':
+	case 'discord-token':
 		console.log("!! Bot token has not been changed, halted process.");
 		process.exit()
 	default:

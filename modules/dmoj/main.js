@@ -5,7 +5,6 @@ const token = require("./../../token.json");
 const prefix = require("./../../prefix.json").dmoj;
 
 module.exports.init = function() {
-	require("./../functions/console.js").modloaded("DMOJ");
 	client.on('message',async message => {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
@@ -61,12 +60,7 @@ module.exports.init = function() {
 	})
 
 	client.on('ready', () => {
-		require('./../functions/console.js').cmdloaded("s!dmoj problem")
-		require('./../functions/console.js').cmdloaded("s!dmoj contest")
-		require('./../functions/console.js').cmdloaded("s!dmoj user")
-		require('./../functions/console.js').cmdloaded("s!dmoj search")
-		require('./../functions/console.js').cmdloaded("s!dmoj contest-search")
-		require('./../functions/console.js').cmdloaded("s!dmoj user-search")
+		require("./../functions/console.js").modloaded("DMOJ");
 	})
 
 

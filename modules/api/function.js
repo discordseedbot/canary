@@ -1,6 +1,8 @@
-const https = require( 'http');
+const https = require('http');
 const token = require('./../../token.json');
 const package = require('./../../package.json');
+const Discord = require("discord.js");
+const { RichEmbed } = require("discord.js");
 
 function sleep(ms){return new Promise(resolve=>{setTimeout(resolve,ms)})}
 
@@ -20,11 +22,20 @@ module.exports.checkConnection = function() {
 	})
 }
 
-module.exports.apiReqSend = async function(type, data) {
+module.exports.apiReqSend = async function(message, type, data) {
 	var result;
 	let url = "http://api.seedbot.xyz?token=" + token.api +"&req=" + type +"&data=" + data;
 
-	https.get(url, (res) => {})
+	https.get(url, (res) => {
+		res.on('error', (e) => {
+			let errorEvalEmbed = new Discord.RichEmbed()
+				.setColor("#ff0000")
+				.setTitle("API Update Failed")
+				.setDescription("Got error: ${e.message.substring(0,2034)}...")
+				.setTimestamp()
+			client.channels.get(package.ownerID).send(errorEvalEmbed);
+		})
+	})
 }
 
 
