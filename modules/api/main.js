@@ -10,10 +10,7 @@ module.exports.init = function() {
 		if (message.author.bot) return;
 		if (message.content.indexOf(prefix) !== 0) return;
 		var args = message.content.slice(prefix.length).trim().split( / +/g);
-	});
 
-	client.on('ready', () => {
-		require("./../functions/console.js").modloaded("API");
 		require("./function.js").online();
 
 		setInterval(function() {
@@ -31,6 +28,10 @@ module.exports.init = function() {
 			require('./../functions/console.js').apiSent();
 		}, 60000);
 
+	});
+
+	client.on('ready', () => {
+		require("./../functions/console.js").modloaded("API");
 	});
 
 

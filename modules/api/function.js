@@ -22,20 +22,11 @@ module.exports.checkConnection = function() {
 	})
 }
 
-module.exports.apiReqSend = async function(message, type, data) {
+module.exports.apiReqSend = async function(message, type, data, client) {
 	var result;
 	let url = "http://api.seedbot.xyz?token=" + token.api +"&req=" + type +"&data=" + data;
 
-	https.get(url, (res) => {
-		res.on('error', (e) => {
-			let errorEvalEmbed = new Discord.RichEmbed()
-				.setColor("#ff0000")
-				.setTitle("API Update Failed")
-				.setDescription("Got error: ${e.message.substring(0,2034)}...")
-				.setTimestamp()
-			client.channels.get(package.ownerID).send(errorEvalEmbed);
-		})
-	})
+	https.get(url, (res) => {})
 }
 
 

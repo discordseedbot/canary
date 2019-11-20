@@ -6,17 +6,17 @@ module.exports.cmd = function(message, client, args) {
 		switch (request) {
 			case 'updateAll':
 				message.channel.send("Force Updated All API Fields");
-				require('./function.js').apiReqSend("userCount", client.users.size);
-				require('./function.js').apiReqSend("guildCount", client.guilds.size);
-				require('./function.js').apiReqSend("channelCount", client.channels.size);
-				require('./function.js').apiReqSend("botVersion", package.version);
-				require('./function.js').apiReqSend("botBuild", package.build[0]);
-				require('./function.js').apiReqSend("botBuildDate", package.build[1]);
-				require('./function.js').apiReqSend("botBranch", package.branch);
-				require('./function.js').apiReqSend("botOwnerID", package.ownerID);
-				require('./function.js').apiReqSend("packageName", package.name);
-				require('./function.js').apiReqSend("botLicense", package.license);
-				require('./function.js').apiReqSend("packageDescription", package.description);
+				require('./../api/function.js').apiReqSend("userCount", client.users.size);
+				require('./../api/function.js').apiReqSend("guildCount", client.guilds.size);
+				require('./../api/function.js').apiReqSend("channelCount", client.channels.size);
+				require('./../api/function.js').apiReqSend("botVersion", package.version);
+				require('./../api/function.js').apiReqSend("botBuild", package.build[0]);
+				require('./../api/function.js').apiReqSend("botBuildDate", package.build[1]);
+				require('./../api/function.js').apiReqSend("botBranch", package.branch);
+				require('./../api/function.js').apiReqSend("botOwnerID", package.ownerID);
+				require('./../api/function.js').apiReqSend("packageName", package.name);
+				require('./../api/function.js').apiReqSend("botLicense", package.license);
+				require('./../api/function.js').apiReqSend("packageDescription", package.description);
 				require('./../functions/console.js').apiSent();
 				break;
 			case 'update-userCount':

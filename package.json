@@ -3,7 +3,7 @@
   "name": "SeedBot",
   "version": "1.3.5",
   "build": [
-    "885",
+    "888",
     "20-11-2019"
   ],
   "description": "A Discord Bot for Developers by Developers, and some basic functions that every bot has.",
